@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Admin Login | GK India Academy</title>
+  <meta name="description" content="Secure administrative login portal for GK India Academy." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#071526" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="../assets/logo.png" />
+
+  <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Admin Stylesheet -->
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <div class="admin-login-wrapper">
+    <div class="admin-login-card">
+      
+      <!-- Header & Brand Identity -->
+      <div class="admin-login-header">
+        <a href="/" class="admin-login-logo-link" title="GK India Academy Home">
+          <img src="../assets/logo.png" alt="GK India Academy Logo" class="admin-login-logo-img" />
+        </a>
+        <div class="admin-brand-tag">Management Portal</div>
+        <h1 class="admin-brand-title">GK India Academy</h1>
+        <h2 class="admin-login-title">
+          <span class="badge-shield"><i class="fas fa-shield-alt"></i></span>
+          Admin Login
+        </h2>
+        <p class="admin-login-subtitle">Sign in to manage website content.</p>
+      </div>
+
+      <!-- General Error Alert Box (ARIA Live) -->
+      <div id="login-alert-box" class="admin-alert admin-alert-error" role="alert" style="display: none;">
+        <i class="fas fa-circle-exclamation" aria-hidden="true"></i>
+        <span id="login-alert-message"></span>
+      </div>
+
+      <!-- Config Notice (Displayed when Supabase is not configured in .env) -->
+      <div id="config-notice-box" class="admin-alert admin-alert-warning" role="alert" style="display: none;">
+        <i class="fas fa-triangle-exclamation" aria-hidden="true"></i>
+        <div>
+          <strong>Configuration Required:</strong> Supabase authentication is not configured yet. Please configure your <code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code> in the <code>.env</code> file.
+        </div>
+      </div>
+
+      <!-- Login Form -->
+      <form id="admin-login-form" novalidate autocomplete="on">
+        
+        <!-- Email Field -->
+        <div class="admin-form-group">
+          <label for="admin-email" class="admin-form-label">Email</label>
+          <div class="admin-input-wrapper">
+            <i class="fas fa-envelope admin-input-icon" aria-hidden="true"></i>
+            <input
+              type="email"
+              id="admin-email"
+              name="email"
+              class="admin-input"
+              placeholder="admin@gkindiaacademy.com"
+              required
+              autocomplete="email"
+              aria-required="true"
+              aria-describedby="email-error"
+            />
+          </div>
+          <div id="email-error" class="admin-input-error-text" role="alert"></div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="admin-form-group">
+          <label for="admin-password" class="admin-form-label">Password</label>
+          <div class="admin-input-wrapper">
+            <i class="fas fa-lock admin-input-icon" aria-hidden="true"></i>
+            <input
+              type="password"
+              id="admin-password"
+              name="password"
+              class="admin-input has-password-toggle"
+              placeholder="••••••••••••"
+              required
+              autocomplete="current-password"
+              aria-required="true"
+              aria-describedby="password-error"
+            />
+            <button
+              type="button"
+              id="toggle-password-btn"
+              class="admin-password-toggle-btn"
+              aria-label="Show password"
+              title="Show password"
+            >
+              <i class="far fa-eye" id="toggle-password-icon" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div id="password-error" class="admin-input-error-text" role="alert"></div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="login-submit-btn" class="admin-btn-primary">
+          <span id="btn-text">Login</span>
+          <span id="btn-spinner" class="admin-btn-spinner" style="display: none;" aria-hidden="true"></span>
+        </button>
+
+        <div style="display: flex; align-items: center; margin: 16px 0 12px; gap: 10px;">
+          <div style="flex: 1; height: 1px; background: var(--admin-border);"></div>
+          <span style="font-size: 0.75rem; color: var(--admin-text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">or</span>
+          <div style="flex: 1; height: 1px; background: var(--admin-border);"></div>
+        </div>
+
+        <!-- 1-Click Demo Admin Login Button -->
+        <button type="button" id="demo-login-btn" class="admin-btn-secondary" style="width: 100%; padding: 11px 16px; background: #fff8eb; border: 1.5px dashed #f59e0b; color: #92400e; border-radius: 10px; font-weight: 700; font-size: 0.88rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease;">
+          <i class="fas fa-bolt" style="color: #f59e0b;"></i>
+          <span>Instant Demo Admin Access</span>
+        </button>
+        <p style="text-align: center; margin-top: 8px; font-size: 0.74rem; color: var(--admin-text-muted);">
+          Credentials: <code>admin@gkindiaacademy.com</code> • Password: <code>admin123</code>
+        </p>
+
+      </form>
+
+      <!-- Return Link -->
+      <div class="admin-card-footer">
+        <a href="/">
+          <i class="fas fa-arrow-left" aria-hidden="true"></i> Return to GK India Academy Website
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Security & Copyright Notice -->
+    <div class="admin-login-copyright">
+      &copy; 2026 GK India Academy. Authorized Personnel Only.
+    </div>
+  </div>
+
+  <!-- Dynamic Environment Variables Loader -->
+  <script src="/admin/env.js"></script>
+
+  <!-- Supabase JS Client v2 from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Admin Auth Module -->
+  <script src="auth.js"></script>
+
+  <!-- Login Page Controller Script -->
+  <script>
+    (function () {
+      'use strict';
+
+      const form = document.getElementById('admin-login-form');
+      const emailInput = document.getElementById('admin-email');
+      const passwordInput = document.getElementById('admin-password');
+      const emailError = document.getElementById('email-error');
+      const passwordError = document.getElementById('password-error');
+      const alertBox = document.getElementById('login-alert-box');
+      const alertMessage = document.getElementById('login-alert-message');
+      const configNoticeBox = document.getElementById('config-notice-box');
+      const submitBtn = document.getElementById('login-submit-btn');
+      const btnText = document.getElementById('btn-text');
+      const btnSpinner = document.getElementById('btn-spinner');
+      const togglePasswordBtn = document.getElementById('toggle-password-btn');
+      const togglePasswordIcon = document.getElementById('toggle-password-icon');
+
+      // 1. Password visibility toggle
+      togglePasswordBtn.addEventListener('click', function () {
+        const isPassword = passwordInput.getAttribute('type') === 'password';
+        if (isPassword) {
+          passwordInput.setAttribute('type', 'text');
+          togglePasswordIcon.className = 'far fa-eye-slash';
+          togglePasswordBtn.setAttribute('aria-label', 'Hide password');
+          togglePasswordBtn.setAttribute('title', 'Hide password');
+        } else {
+          passwordInput.setAttribute('type', 'password');
+          togglePasswordIcon.className = 'far fa-eye';
+          togglePasswordBtn.setAttribute('aria-label', 'Show password');
+          togglePasswordBtn.setAttribute('title', 'Show password');
+        }
+      });
+
+      // 2. Clear field-level error on typing
+      emailInput.addEventListener('input', function () {
+        emailInput.classList.remove('is-invalid');
+        emailError.textContent = '';
+        emailError.classList.remove('is-visible');
+        hideAlert();
+      });
+
+      passwordInput.addEventListener('input', function () {
+        passwordInput.classList.remove('is-invalid');
+        passwordError.textContent = '';
+        passwordError.classList.remove('is-visible');
+        hideAlert();
+      });
+
+      function showAlert(msg) {
+        alertMessage.textContent = msg;
+        alertBox.style.display = 'flex';
+      }
+
+      function hideAlert() {
+        alertBox.style.display = 'none';
+        alertMessage.textContent = '';
+      }
+
+      function setLoading(isLoading) {
+        if (isLoading) {
+          submitBtn.disabled = true;
+          btnText.textContent = 'Authenticating...';
+          btnSpinner.style.display = 'inline-block';
+        } else {
+          submitBtn.disabled = false;
+          btnText.textContent = 'Login';
+          btnSpinner.style.display = 'none';
+        }
+      }
+
+      // 3. Check URL query parameters for redirects/errors
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('error') === 'unauthorized') {
+        showAlert('Access denied. You do not have administrator privileges.');
+      } else if (urlParams.get('error') === 'expired') {
+        showAlert('Your session has expired. Please sign in again.');
+      }
+
+      // 4. Initial check: If already logged in as admin, redirect directly to dashboard
+      AdminAuth.redirectIfAuthenticated();
+
+      // Check if Supabase client config is available
+      AdminAuth.getClient().then(function (client) {
+        if (!client) {
+          configNoticeBox.style.display = 'flex';
+        }
+      });
+
+      // Demo login button handler
+      const demoLoginBtn = document.getElementById('demo-login-btn');
+      if (demoLoginBtn) {
+        demoLoginBtn.addEventListener('click', async function () {
+          setLoading(true);
+          const res = await AdminAuth.loginDemo();
+          setLoading(false);
+          if (res.success) {
+            const redirectParam = urlParams.get('redirect');
+            const targetUrl = redirectParam ? decodeURIComponent(redirectParam) : (AdminAuth.getAdminDashboardPath ? AdminAuth.getAdminDashboardPath() : '/admin/dashboard');
+            window.location.replace(targetUrl);
+          }
+        });
+      }
+
+      // 5. Handle Form Submission
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        hideAlert();
+
+        let hasError = false;
+
+        // Email validation
+        const emailVal = emailInput.value.trim();
+        const emailCheck = AdminAuth.validateEmail(emailVal);
+        if (!emailCheck.valid) {
+          emailInput.classList.add('is-invalid');
+          emailError.textContent = emailCheck.message;
+          emailError.classList.add('is-visible');
+          hasError = true;
+        } else {
+          emailInput.classList.remove('is-invalid');
+          emailError.textContent = '';
+          emailError.classList.remove('is-visible');
+        }
+
+        // Password validation
+        const passwordVal = passwordInput.value;
+        const passwordCheck = AdminAuth.validatePassword(passwordVal);
+        if (!passwordCheck.valid) {
+          passwordInput.classList.add('is-invalid');
+          passwordError.textContent = passwordCheck.message;
+          passwordError.classList.add('is-visible');
+          hasError = true;
+        } else {
+          passwordInput.classList.remove('is-invalid');
+          passwordError.textContent = '';
+          passwordError.classList.remove('is-visible');
+        }
+
+        if (hasError) {
+          if (!emailCheck.valid) {
+            emailInput.focus();
+          } else if (!passwordCheck.valid) {
+            passwordInput.focus();
+          }
+          return;
+        }
+
+        // Perform authentication
+        setLoading(true);
+
+        const result = await AdminAuth.login(emailVal, passwordVal);
+
+        setLoading(false);
+
+        if (!result.success) {
+          showAlert(result.message || 'Invalid email or password.');
+          if (result.isConfigError) {
+            configNoticeBox.style.display = 'flex';
+          }
+          return;
+        }
+
+        // Successful authentication & admin role verified!
+        const redirectParam = urlParams.get('redirect');
+        const targetUrl = redirectParam ? decodeURIComponent(redirectParam) : (AdminAuth.getAdminDashboardPath ? AdminAuth.getAdminDashboardPath() : '/admin/dashboard');
+        window.location.replace(targetUrl);
+      });
+    })();
+  </script>
+</body>
+</html>

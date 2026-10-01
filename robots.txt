@@ -1,0 +1,28 @@
+# robots.txt for GK India Academy (https://gkindiaacademy.com)
+# User-agent directives and sitemap reference
+
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /gk.html
+Allow: /government-exams.html
+Allow: /government-exams/
+Allow: /mcqs/
+Allow: /subjects/
+Allow: /assets/
+Allow: /styles.css
+Allow: /search.css
+Allow: /search.js
+Allow: /script.js
+
+# Disallow private administrative and backend paths
+Disallow: /admin/
+Disallow: /backups/
+Disallow: /.env*
+Disallow: /supabase/
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
+
+# XML Sitemap location
+Sitemap: https://gkindiaacademy.com/sitemap.xml

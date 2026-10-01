@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="mcqPageTitle">Practice Government Exam MCQs | GK India Academy</title>
+  <meta name="description" content="Practice subject-wise, exam-wise and topic-wise multiple choice questions for UPSC, SSC, Railway, Banking, Teaching and State Government Exams with answers, explanations, timer, progress tracking and practice test scorecards." />
+  <meta name="author" content="GK India Academy" />
+  <link rel="canonical" href="https://gkindiaacademy.com/mcqs/" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0f2744" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://gkindiaacademy.com/mcqs/" />
+  <meta property="og:title" content="Practice Government Exam MCQs | GK India Academy" />
+  <meta property="og:description" content="Practice subject-wise, exam-wise and topic-wise multiple choice questions for UPSC, SSC, Railway, Banking, and State Government Exams with answers and explanations." />
+  <meta property="og:image" content="../assets/banner.png" />
+  <meta property="og:site_name" content="GK India Academy" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Practice Government Exam MCQs | GK India Academy" />
+  <meta name="twitter:description" content="Practice subject-wise, exam-wise and topic-wise MCQs for UPSC, SSC, Railway, Banking with detailed answers and timers." />
+  <meta name="twitter:image" content="../assets/banner.png" />
+
+  <link rel="icon" type="image/png" href="../assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Main Stylesheets -->
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../government-exams/exams.css" />
+  <link rel="stylesheet" href="../search.css" />
+
+  <style>
+    .mcq-portal-hero {
+      background: linear-gradient(135deg, var(--navy-darkest) 0%, var(--navy-primary) 50%, var(--navy-medium) 100%);
+      color: #fff;
+      padding: 40px 0 46px;
+      border-bottom: 3px solid var(--gold-primary);
+    }
+    .mcq-cat-tabs-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .mcq-cat-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      padding: 7px 15px;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mcq-cat-btn:hover {
+      background: rgba(245, 158, 11, 0.25);
+      border-color: var(--gold-primary);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+    .mcq-cat-btn.active {
+      background: var(--gold-primary);
+      border-color: var(--gold-primary);
+      color: var(--navy-darkest);
+      font-weight: 700;
+    }
+
+    /* Sub-filters Bar (Subject & Topic Filters + Mode Toggle) */
+    .mcq-subfilter-bar {
+      background: #091a2e;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 14px 0;
+    }
+    .mcq-subfilter-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .mcq-filters-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .mcq-select-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .mcq-select-dropdown {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-family: inherit;
+      outline: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .mcq-select-dropdown:hover, .mcq-select-dropdown:focus {
+      border-color: var(--gold-primary);
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .mcq-select-dropdown option {
+      background: #0f2744;
+      color: #ffffff;
+    }
+
+    /* Mode Switcher Tabs */
+    .mcq-mode-toggle {
+      display: flex;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .mcq-mode-btn {
+      padding: 6px 14px;
+      border: none;
+      background: transparent;
+      color: #94a3b8;
+      font-size: 0.84rem;
+      font-weight: 600;
+      border-radius: 7px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .mcq-mode-btn.active {
+      background: var(--gold-primary);
+      color: #071526;
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Visual Progress Bar */
+    .mcq-progress-bar-container {
+      margin-bottom: 18px;
+    }
+    .mcq-progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+      color: #94a3b8;
+    }
+    .mcq-progress-track {
+      width: 100%;
+      height: 7px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+    .mcq-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #f59e0b, #fbbf24);
+      width: 0%;
+      border-radius: 10px;
+      transition: width 0.35s ease;
+    }
+
+    /* Question Palette Widget */
+    .mcq-palette-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+      max-height: 220px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .mcq-palette-btn {
+      aspect-ratio: 1;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .mcq-palette-btn:hover {
+      border-color: var(--gold-primary);
+      background: rgba(245, 158, 11, 0.2);
+    }
+    .mcq-palette-btn.active {
+      box-shadow: 0 0 0 2px #38bdf8;
+    }
+    .mcq-palette-btn.is-answered {
+      background: #10b981 !important;
+      border-color: #10b981 !important;
+      color: #ffffff !important;
+    }
+    .mcq-palette-btn.is-review {
+      background: #f59e0b !important;
+      border-color: #f59e0b !important;
+      color: #071526 !important;
+    }
+    .mcq-palette-btn.is-skipped {
+      background: rgba(239, 68, 68, 0.75) !important;
+      border-color: #ef4444 !important;
+      color: #ffffff !important;
+    }
+
+    /* Legend Box */
+    .mcq-legend-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.76rem;
+      color: #cbd5e1;
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    /* Scorecard Modal */
+    .mcq-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 14, 26, 0.85);
+      backdrop-filter: blur(6px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .mcq-modal-overlay.active {
+      display: flex;
+    }
+    .mcq-scorecard-card {
+      background: #0c1e38;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 620px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      color: #ffffff;
+      padding: 32px 28px;
+      animation: modalSlideUp 0.3s ease-out;
+    }
+    @keyframes modalSlideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .scorecard-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .stat-card-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 14px 10px;
+      text-align: center;
+    }
+    .stat-card-box .stat-val {
+      font-size: 1.55rem;
+      font-weight: 800;
+      font-family: 'Outfit', sans-serif;
+    }
+    .stat-card-box .stat-lbl {
+      font-size: 0.74rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+    }
+
+    /* Score Indicator */
+    .mcq-score-badge {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #f59e0b;
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-announcement-bar">
+    <div class="container announcement-content">
+      <div class="announcement-left">
+        <span class="badge-new">MCQ & PRACTICE TEST PORTAL</span>
+        <span class="announcement-text"><i class="fas fa-trophy"></i> Subject-wise, Exam-wise & Topic-wise Practice Questions</span>
+      </div>
+      <div class="announcement-right">
+        <a href="/government-exams" class="announcement-link"><i class="fas fa-award"></i> Government Exams</a>
+        <span class="divider-dot">•</span>
+        <a href="../index.html" class="announcement-link"><i class="fas fa-home"></i> Home</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-container">
+      <a href="../index.html" class="brand-logo-wrap">
+        <img src="../assets/logo.png" alt="GK India Academy" class="brand-logo-img" onerror="this.style.display='none'; this.nextElementSibling.classList.add('logo-fallback-visible');" />
+        <div class="brand-logo-fallback"><i class="fas fa-graduation-cap"></i></div>
+        <div class="brand-text-block">
+          <span class="brand-title">GK INDIA ACADEMY</span>
+          <span class="brand-tagline">Prepare Smart. Learn More. Succeed.</span>
+        </div>
+      </a>
+
+      <nav class="desktop-nav">
+        <ul class="nav-links-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="/government-exams" class="nav-link">Government Exams</a></li>
+          <li><a href="index.html" class="nav-link active">Practice MCQs</a></li>
+          <li><a href="../index.html#current-affairs" class="nav-link">Current Affairs</a></li>
+          <li><a href="../index.html#youtube" class="nav-link">Videos</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn-global-search-trigger" id="globalSearchBtn" aria-label="Search Academy" title="Search Academy (Ctrl+K or /)">
+          <i class="fas fa-search"></i>
+          <span class="search-trigger-text">Search...</span>
+          <kbd class="search-kbd-badge">Ctrl+K</kbd>
+        </button>
+        <a href="/government-exams" class="btn btn-outline-primary" style="padding: 8px 16px;">
+          <i class="fas fa-award"></i> Exams Directory
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- MCQ Hero Section -->
+    <section class="mcq-portal-hero">
+      <div class="container">
+        <nav class="breadcrumb-nav">
+          <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+          <span class="breadcrumb-sep"><i class="fas fa-chevron-right"></i></span>
+          <a href="/government-exams">Government Exams</a>
+          <span class="breadcrumb-sep"><i class="fas fa-chevron-right"></i></span>
+          <span class="breadcrumb-current" id="breadcrumbCategoryName">Practice MCQs</span>
+        </nav>
+
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; margin-top: 10px;">
+          <div>
+            <span class="badge-cta-gold" id="portalCategoryBadge"><i class="fas fa-spell-check"></i> Practice Portal</span>
+            <h1 class="exams-hero-title" id="mcqHeroTitle" style="margin-top: 8px;">Government Exam Practice MCQs</h1>
+            <p class="exams-hero-subtitle" id="mcqHeroSubtitle">
+              Targeted multiple choice questions curated for competitive examinations with instant scoring, progress analytics, and concept explanations.
+            </p>
+          </div>
+
+          <!-- Total Questions Counter Badge -->
+          <div style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); padding: 10px 18px; border-radius: 12px; text-align: right;">
+            <div style="font-size: 0.78rem; color: #cbd5e1; text-transform: uppercase; font-weight: 600;">Question Bank</div>
+            <div style="font-size: 1.45rem; font-weight: 800; color: #fbbf24; font-family: 'Outfit', sans-serif;" id="availableQCount">Loading...</div>
+          </div>
+        </div>
+
+        <!-- 1. Exam-wise Category Pills -->
+        <div class="mcq-cat-tabs-row" id="mcqCategoryTabs">
+          <a href="?category=all" class="mcq-cat-btn" data-cat="all"><i class="fas fa-cubes"></i> All Exams</a>
+          <a href="?category=upsc" class="mcq-cat-btn" data-cat="upsc"><i class="fas fa-landmark"></i> UPSC</a>
+          <a href="?category=ssc" class="mcq-cat-btn" data-cat="ssc"><i class="fas fa-briefcase"></i> SSC</a>
+          <a href="?category=railway" class="mcq-cat-btn" data-cat="railway"><i class="fas fa-train"></i> Railway</a>
+          <a href="?category=banking" class="mcq-cat-btn" data-cat="banking"><i class="fas fa-university"></i> Banking</a>
+          <a href="?category=teaching" class="mcq-cat-btn" data-cat="teaching"><i class="fas fa-chalkboard-user"></i> Teaching</a>
+          <a href="?category=state-government" class="mcq-cat-btn" data-cat="state-government"><i class="fas fa-map-location-dot"></i> State Govt</a>
+          <a href="?category=defence" class="mcq-cat-btn" data-cat="defence"><i class="fas fa-shield-halved"></i> Defence</a>
+          <a href="?category=police" class="mcq-cat-btn" data-cat="police"><i class="fas fa-person-military-pointing"></i> Police</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Sub-filters Bar: Subject & Topic Dropdowns + Practice Mode Toggle -->
+    <div class="mcq-subfilter-bar">
+      <div class="container mcq-subfilter-flex">
+        <div class="mcq-filters-group">
+          <!-- Subject-wise Dropdown -->
+          <div class="mcq-select-wrap">
+            <span><i class="fas fa-book" style="color: #fbbf24;"></i> Subject:</span>
+            <select id="subjectFilterSelect" class="mcq-select-dropdown" aria-label="Filter by Subject">
+              <option value="all">All Subjects</option>
+              <option value="Indian History">Indian History</option>
+              <option value="Indian Polity">Indian Polity</option>
+              <option value="Indian Geography">Indian Geography</option>
+              <option value="Indian Economy">Indian Economy</option>
+              <option value="General Science">General Science</option>
+              <option value="Environment & Ecology">Environment & Ecology</option>
+              <option value="Art & Culture">Art & Culture</option>
+              <option value="Static GK">Static GK</option>
+              <option value="Current Affairs">Current Affairs</option>
+            </select>
+          </div>
+
+          <!-- Topic-wise Dropdown -->
+          <div class="mcq-select-wrap">
+            <span><i class="fas fa-layer-group" style="color: #38bdf8;"></i> Topic:</span>
+            <select id="topicFilterSelect" class="mcq-select-dropdown" aria-label="Filter by Topic">
+              <option value="all">All Topics</option>
+              <option value="Indus Valley Civilization">Indus Valley Civilization</option>
+              <option value="Fundamental Rights">Fundamental Rights (Art 12-35)</option>
+              <option value="Indian River Systems">Indian River Systems</option>
+              <option value="Monetary Policy & RBI">Monetary Policy & RBI</option>
+              <option value="Space Missions & Defense">Space Missions & ISRO</option>
+              <option value="Freedom Struggle 1857-1947">Freedom Struggle 1857-1947</option>
+              <option value="Biodiversity Hotspots">Biodiversity Hotspots</option>
+              <option value="Classical Dances & Heritage">Classical Dances & Heritage</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Mode Toggle: Instant Practice vs Timed Mock Test -->
+        <div class="mcq-mode-toggle" role="tablist">
+          <button id="modeStudyBtn" class="mcq-mode-btn active" role="tab" aria-selected="true" title="Instant Explanation & Correct Answer">
+            <i class="fas fa-book-open-reader"></i> Study Mode
+          </button>
+          <button id="modeMockBtn" class="mcq-mode-btn" role="tab" aria-selected="false" title="Timed Mock Test with Scorecard">
+            <i class="fas fa-stopwatch"></i> Practice Test Mode
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Interactive MCQ & Practice Test Engine -->
+    <section class="section mcq-section bg-gradient-navy" style="min-height: 600px; padding: 36px 0 60px;">
+      <div class="container">
+        <div class="mcq-layout-grid">
+          
+          <!-- Main Quiz Card -->
+          <div class="mcq-main-card">
+            
+            <!-- Progress Bar -->
+            <div class="mcq-progress-bar-container">
+              <div class="mcq-progress-meta">
+                <span id="mcqProgressText">Question 1 of 5 (0% completed)</span>
+                <span id="mcqAnsweredCountBadge" style="font-weight: 700; color: #38bdf8;">0 Answered</span>
+              </div>
+              <div class="mcq-progress-track">
+                <div class="mcq-progress-fill" id="mcqProgressBarFill"></div>
+              </div>
+            </div>
+
+            <!-- Card Top Bar -->
+            <div class="mcq-card-top-bar">
+              <div class="mcq-badge-info">
+                <span class="mcq-qnum" id="mcqQNum">Question 1 of 5</span>
+                <span class="mcq-category-tag" id="mcqCategoryTag">Government Exam Practice</span>
+              </div>
+              <div class="mcq-top-actions">
+                <div class="mcq-score-badge">
+                  <span>Score: </span>
+                  <strong id="mcqScoreDisplay">0 / 0</strong>
+                </div>
+                <button class="btn-mcq-bookmark" id="mcqBookmarkBtn" title="Bookmark this question">
+                  <i class="far fa-bookmark"></i>
+                  <span>Bookmark</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Question Number Indicator Dots -->
+            <div class="mcq-question-dots" id="mcqQuestionDots"></div>
+
+            <!-- Question Box -->
+            <div class="mcq-question-box">
+              <div class="question-prefix" id="questionPrefix">Q1.</div>
+              <h3 class="mcq-question-text" id="mcqQuestionText">Loading question...</h3>
+            </div>
+
+            <!-- Options List (A-D) -->
+            <div class="mcq-options-list" id="mcqOptionsContainer"></div>
+
+            <!-- Detailed Explanation Box (Displayed in Study Mode or after Review) -->
+            <div class="mcq-explanation-box" id="mcqExplanationBox" style="display: none;">
+              <div class="explanation-title">
+                <i class="fas fa-lightbulb"></i> Detailed Exam Explanation:
+              </div>
+              <p class="explanation-text" id="mcqExplanationText"></p>
+            </div>
+
+            <!-- Footer Controls (Prev, Next, Review, Submit) -->
+            <div class="mcq-card-footer" style="flex-wrap: wrap; gap: 12px;">
+              <div class="mcq-nav-buttons" style="flex-wrap: wrap; gap: 8px;">
+                <button class="btn btn-sm btn-mcq-nav" id="prevMcqBtn" disabled>
+                  <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <button class="btn btn-sm btn-mcq-nav" id="nextMcqBtn">
+                  Next Question <i class="fas fa-chevron-right"></i>
+                </button>
+                <!-- Mark for Review button (Practice Test Mode) -->
+                <button class="btn btn-sm btn-outline-warning" id="markReviewBtn" style="display: none; padding: 7px 14px; font-size: 0.85rem; border-radius: 8px;">
+                  <i class="fas fa-flag"></i> Mark for Review
+                </button>
+                <!-- Clear Answer -->
+                <button class="btn btn-sm btn-outline-secondary" id="clearAnswerBtn" style="display: none; padding: 7px 14px; font-size: 0.85rem; border-radius: 8px;">
+                  <i class="fas fa-eraser"></i> Clear
+                </button>
+              </div>
+
+              <!-- Submit / Finish Test Button -->
+              <div>
+                <button class="btn btn-gold" id="submitTestBtn" style="padding: 8px 18px; font-weight: 700; font-size: 0.88rem; display: none;">
+                  <i class="fas fa-check-double"></i> Submit Practice Test
+                </button>
+                <a href="/government-exams" class="btn btn-outline-exam" id="exploreExamsBtn">
+                  <i class="fas fa-th-large"></i> Exams Directory
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar: Test Widget & Question Palette -->
+          <div class="daily-question-widget">
+            <div class="widget-header">
+              <div class="widget-icon-wrap" id="widgetIconWrap"><i class="fas fa-stopwatch"></i></div>
+              <div>
+                <span class="widget-badge" id="widgetBadge">Exam Simulation</span>
+                <h4 class="widget-title" id="widgetTitle">Practice Engine</h4>
+              </div>
+            </div>
+
+            <div class="widget-body">
+              
+              <!-- Countdown Timer (Active in Test Mode) -->
+              <div class="timer-display-box" id="timerDisplayBox">
+                <div class="timer-circle" id="timerCircle"><span id="speedTimer">10:00</span></div>
+                <div class="timer-meta">
+                  <strong id="timerLabel">Mock Test Clock</strong>
+                  <span id="timerSubLabel">Standard Exam Pace</span>
+                </div>
+              </div>
+
+              <!-- Real-time Exam Stats in Test Mode -->
+              <div id="testStatsBox" style="background: rgba(0,0,0,0.25); border-radius: 12px; padding: 12px; margin-top: 14px; font-size: 0.85rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <div><span style="color: #94a3b8;">Attempted:</span> <strong id="statAttempted" style="color: #10b981;">0</strong></div>
+                <div><span style="color: #94a3b8;">Unattempted:</span> <strong id="statUnattempted" style="color: #ef4444;">0</strong></div>
+                <div><span style="color: #94a3b8;">Marked Review:</span> <strong id="statReview" style="color: #f59e0b;">0</strong></div>
+                <div><span style="color: #94a3b8;">Marking:</span> <strong style="color: #38bdf8;">+2 / -0.5</strong></div>
+              </div>
+
+              <!-- Question Palette Grid -->
+              <div style="margin-top: 18px;">
+                <div style="font-size: 0.84rem; font-weight: 700; color: #ffffff; display: flex; justify-content: space-between;">
+                  <span>Question Palette</span>
+                  <span id="paletteCountText" style="color: #94a3b8; font-weight: 500;"></span>
+                </div>
+                <div class="mcq-palette-grid" id="questionPaletteGrid"></div>
+
+                <!-- Palette Legend -->
+                <div class="mcq-legend-row">
+                  <div class="legend-item"><span class="legend-dot" style="background: #10b981;"></span> Answered</div>
+                  <div class="legend-item"><span class="legend-dot" style="background: #f59e0b;"></span> Marked</div>
+                  <div class="legend-item"><span class="legend-dot" style="background: #ef4444;"></span> Skipped</div>
+                  <div class="legend-item"><span class="legend-dot" style="background: rgba(255,255,255,0.2);"></span> Not Visited</div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="widget-footer">
+              <button class="btn btn-gold btn-block" id="restartPracticeBtn">
+                <i class="fas fa-rotate-left"></i> Restart Practice Set
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 4. Practice Test Results Scorecard Modal -->
+  <div class="mcq-modal-overlay" id="scorecardModal" role="dialog" aria-modal="true" aria-labelledby="scorecardTitle">
+    <div class="mcq-scorecard-card">
+      <div style="text-align: center;">
+        <div style="font-size: 3.2rem; color: #f59e0b; margin-bottom: 8px;"><i class="fas fa-award"></i></div>
+        <h2 id="scorecardTitle" style="font-size: 1.6rem; font-weight: 800; font-family: 'Outfit', sans-serif; margin-bottom: 4px;">Practice Test Scorecard</h2>
+        <p style="font-size: 0.92rem; color: #94a3b8;" id="scorecardSubtitle">Comprehensive Exam Readiness Performance</p>
+      </div>
+
+      <!-- Stat Grid -->
+      <div class="scorecard-stat-grid">
+        <div class="stat-card-box">
+          <div class="stat-val" id="scTotalQuestions" style="color: #38bdf8;">0</div>
+          <div class="stat-lbl">Questions</div>
+        </div>
+        <div class="stat-card-box">
+          <div class="stat-val" id="scCorrectCount" style="color: #10b981;">0</div>
+          <div class="stat-lbl">Correct (+2)</div>
+        </div>
+        <div class="stat-card-box">
+          <div class="stat-val" id="scIncorrectCount" style="color: #ef4444;">0</div>
+          <div class="stat-lbl">Wrong (-0.5)</div>
+        </div>
+        <div class="stat-card-box">
+          <div class="stat-val" id="scFinalScore" style="color: #f59e0b;">0</div>
+          <div class="stat-lbl">Final Score</div>
+        </div>
+        <div class="stat-card-box">
+          <div class="stat-val" id="scAccuracy" style="color: #a855f7;">0%</div>
+          <div class="stat-lbl">Accuracy</div>
+        </div>
+        <div class="stat-card-box">
+          <div class="stat-val" id="scTimeTaken" style="color: #cbd5e1;">00:00</div>
+          <div class="stat-lbl">Time Taken</div>
+        </div>
+      </div>
+
+      <!-- Performance Feedback Box -->
+      <div id="scorecardFeedbackBox" style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 14px; margin-bottom: 20px; font-size: 0.88rem; color: #fde68a;">
+        <strong>Performance Assessment:</strong>
+        <p id="scorecardFeedbackText" style="margin: 4px 0 0 0; color: #cbd5e1; line-height: 1.5;"></p>
+      </div>
+
+      <!-- Modal Action Buttons -->
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <button type="button" class="btn btn-secondary" id="closeScorecardBtn" style="padding: 10px 20px;">
+          <i class="fas fa-eye"></i> Review Questions
+        </button>
+        <button type="button" class="btn btn-primary" id="retakeTestBtn" style="padding: 10px 20px;">
+          <i class="fas fa-rotate-right"></i> Retake Practice Test
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom-bar">
+      <div class="footer-bottom-flex">
+        <p class="copyright-text">&copy; 2026 GK India Academy. All Rights Reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="../privacy-policy.html" style="color:#94a3b8; text-decoration:none; margin-right:8px;">Privacy Policy</a>
+          <span style="color:#64748b; margin-right:8px;">•</span>
+          <a href="../terms.html" style="color:#94a3b8; text-decoration:none; margin-right:8px;">Terms</a>
+          <span style="color:#64748b; margin-right:8px;">•</span>
+          <a href="../disclaimer.html" style="color:#94a3b8; text-decoration:none; margin-right:8px;">Disclaimer</a>
+          <span style="color:#64748b; margin-right:8px;">•</span>
+          <a href="../cookie-policy.html" style="color:#94a3b8; text-decoration:none;">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive MCQ Engine Script -->
+  <script>
+    // Rich categorized MCQ repository for Exams, Subjects, and Topics
+    const ALL_MCQ_QUESTIONS = [
+      // UPSC
+      {
+        id: 'u1',
+        exam: 'upsc',
+        subject: 'Indian Polity',
+        topic: 'Fundamental Rights',
+        category: 'UPSC Civil Services — Indian Polity',
+        question: 'Which Article of the Indian Constitution empowers the President to promulgate Ordinances during recess of Parliament?',
+        options: ['Article 123', 'Article 213', 'Article 143', 'Article 356'],
+        correct: 0,
+        explanation: 'Article 123 of the Constitution empowers the President to promulgate Ordinances when either House of Parliament is not in session. Article 213 grants similar powers to State Governors.'
+      },
+      {
+        id: 'u2',
+        exam: 'upsc',
+        subject: 'Environment & Ecology',
+        topic: 'Biodiversity Hotspots',
+        category: 'UPSC Civil Services — Environment & Ecology',
+        question: 'Which of the following is designated as India’s first National Marine Park?',
+        options: ['Gulf of Mannar National Park', 'Marine National Park, Gulf of Kutch', 'Mahatma Gandhi Marine National Park', 'Rani Jhansi Marine National Park'],
+        correct: 1,
+        explanation: 'The Marine National Park in the Gulf of Kutch, Gujarat (established in 1982) is the first marine national park in India, protecting corals, dugongs, and mangrove habitats.'
+      },
+      {
+        id: 'u3',
+        exam: 'upsc',
+        subject: 'Indian History',
+        topic: 'Freedom Struggle 1857-1947',
+        category: 'UPSC Civil Services — Modern History',
+        question: 'The famous "Poona Pact" of 1932 was signed between which two leaders?',
+        options: ['Mahatma Gandhi and B.R. Ambedkar', 'Jawaharlal Nehru and Lord Irwin', 'Subhash Chandra Bose and Mahatma Gandhi', 'Muhammad Ali Jinnah and Sardar Patel'],
+        correct: 0,
+        explanation: 'The Poona Pact was an agreement between Mahatma Gandhi and Dr. B.R. Ambedkar on behalf of depressed classes and caste Hindus regarding the reservation of electoral seats in provincial legislatures.'
+      },
+      {
+        id: 'u4',
+        exam: 'upsc',
+        subject: 'Indian Geography',
+        topic: 'Indian River Systems',
+        category: 'UPSC Civil Services — Indian Geography',
+        question: 'Which of the following tributaries joins the Ganga from the right bank as its largest southern tributary?',
+        options: ['Yamuna', 'Ghaghara', 'Gomti', 'Gandak'],
+        correct: 0,
+        explanation: 'The Yamuna is the longest and largest right-bank tributary of the Ganga, originating at Yamunotri Glacier and merging with the Ganga at Prayagraj (Triveni Sangam).'
+      },
+
+      // SSC
+      {
+        id: 's1',
+        exam: 'ssc',
+        subject: 'Indian Economy',
+        topic: 'Monetary Policy & RBI',
+        category: 'SSC CGL — General Awareness',
+        question: 'In which year was the Goods and Services Tax (GST) implemented across India?',
+        options: ['1 July 2017', '1 April 2016', '15 August 2017', '1 January 2018'],
+        correct: 0,
+        explanation: 'GST was implemented in India on 1 July 2017 via the 101st Constitutional Amendment Act, replacing multiple cascading central and state indirect taxes.'
+      },
+      {
+        id: 's2',
+        exam: 'ssc',
+        subject: 'General Science',
+        topic: 'Space Missions & Defense',
+        category: 'SSC CGL — General Science',
+        question: 'What is the common chemical name and formula of "Quick Lime"?',
+        options: ['Calcium Oxide (CaO)', 'Calcium Hydroxide [Ca(OH)2]', 'Calcium Carbonate (CaCO3)', 'Calcium Chloride (CaCl2)'],
+        correct: 0,
+        explanation: 'Quick Lime is Calcium Oxide (CaO). Slaked lime is Calcium Hydroxide [Ca(OH)2], while limestone or chalk is Calcium Carbonate (CaCO3).'
+      },
+      {
+        id: 's3',
+        exam: 'ssc',
+        subject: 'Art & Culture',
+        topic: 'Classical Dances & Heritage',
+        category: 'SSC CHSL — Static GK',
+        question: 'The classical dance form "Sattriya" originated in which Indian state?',
+        options: ['Assam', 'Odisha', 'Manipur', 'Kerala'],
+        correct: 0,
+        explanation: 'Sattriya classical dance originated in the 15th-century Vaishnavite monasteries (Sattras) of Assam, founded by the great Bhakti saint Mahapurush Srimanta Sankardev.'
+      },
+      {
+        id: 's4',
+        exam: 'ssc',
+        subject: 'Indian History',
+        topic: 'Indus Valley Civilization',
+        category: 'SSC CGL — Ancient History',
+        question: 'At which Harappan site was the famous bronze figurine of the "Dancing Girl" discovered?',
+        options: ['Mohenjo-daro', 'Harappa', 'Lothal', 'Kalibangan'],
+        correct: 0,
+        explanation: 'The iconic lost-wax cast bronze statuette of the Dancing Girl was excavated from Mohenjo-daro in 1926 by Ernest Mackay.'
+      },
+
+      // RAILWAY
+      {
+        id: 'r1',
+        exam: 'railway',
+        subject: 'Indian History',
+        topic: 'Freedom Struggle 1857-1947',
+        category: 'RRB NTPC — General Awareness',
+        question: 'In which year did the first passenger train run in India between Bori Bunder (Mumbai) and Thane?',
+        options: ['1853', '1857', '1869', '1885'],
+        correct: 0,
+        explanation: 'India’s first commercial passenger train operated on 16 April 1853 over a distance of 34 km between Bori Bunder and Thane, carrying 400 passengers in 14 carriages.'
+      },
+      {
+        id: 'r2',
+        exam: 'railway',
+        subject: 'General Science',
+        topic: 'Space Missions & Defense',
+        category: 'RRB NTPC — General Science',
+        question: 'Which fundamental law of fluid mechanics explains the working of hydraulic brakes in locomotives and automobiles?',
+        options: ["Pascal's Law", "Archimedes' Principle", "Bernoulli's Principle", "Hooke's Law"],
+        correct: 0,
+        explanation: "Pascal's Law states that pressure applied to an enclosed fluid is transmitted undiminished in all directions, which is the foundational basis for hydraulic braking systems."
+      },
+      {
+        id: 'r3',
+        exam: 'railway',
+        subject: 'General Science',
+        topic: 'Space Missions & Defense',
+        category: 'RRB Group D — Biology',
+        question: 'Which human organ is primarily responsible for filtering urea and metabolic waste from the blood?',
+        options: ['Kidneys', 'Liver', 'Lungs', 'Spleen'],
+        correct: 0,
+        explanation: 'The kidneys filter blood through millions of tiny functional units called nephrons, removing urea, salts, and excess water as urine.'
+      },
+
+      // BANKING
+      {
+        id: 'b1',
+        exam: 'banking',
+        subject: 'Indian Economy',
+        topic: 'Monetary Policy & RBI',
+        category: 'Banking Awareness — RBI & Monetary Policy',
+        question: 'What does the term "Repo Rate" denote in Reserve Bank of India monetary operations?',
+        options: [
+          'Rate at which RBI lends short-term funds to commercial banks against government securities',
+          'Rate at which commercial banks deposit excess liquidity with RBI',
+          'Rate at which banks lend to corporate prime borrowers',
+          'Minimum cash balance commercial banks must hold in vault'
+        ],
+        correct: 0,
+        explanation: 'Repo (Repurchase Agreement) rate is the key policy interest rate at which the Reserve Bank of India lends short-term liquidity to commercial banks against approved government securities.'
+      },
+      {
+        id: 'b2',
+        exam: 'banking',
+        subject: 'Indian Economy',
+        topic: 'Monetary Policy & RBI',
+        category: 'Banking Awareness — Financial Terms',
+        question: 'What is the full expansion of the banking transaction settlement system "RTGS"?',
+        options: ['Real Time Gross Settlement', 'Rapid Transfer Government System', 'Reserve Transfer Global Scheme', 'Retail Transaction Guarantee Settlement'],
+        correct: 0,
+        explanation: 'RTGS stands for Real Time Gross Settlement. It facilitates continuous, instantaneous gross fund transfers on a transaction-by-transaction basis without netting.'
+      },
+
+      // TEACHING
+      {
+        id: 't1',
+        exam: 'teaching',
+        subject: 'Indian Polity',
+        topic: 'Fundamental Rights',
+        category: 'Teaching (CTET) — Pedagogy & EVS',
+        question: 'According to the Right of Children to Free and Compulsory Education (RTE) Act 2009, education is guaranteed for children of which age group?',
+        options: ['6 to 14 Years', '3 to 18 Years', '5 to 12 Years', '6 to 16 Years'],
+        correct: 0,
+        explanation: 'The RTE Act 2009 guarantees free and compulsory elementary education to every child in India in the 6 to 14 years age bracket under Article 21A of the Constitution.'
+      },
+      {
+        id: 't2',
+        exam: 'teaching',
+        subject: 'General Science',
+        topic: 'Space Missions & Defense',
+        category: 'Teaching (CTET) — Child Development',
+        question: 'Who proposed the groundbreaking "Theory of Multiple Intelligences" in developmental cognitive psychology?',
+        options: ['Howard Gardner', 'Jean Piaget', 'Lev Vygotsky', 'B.F. Skinner'],
+        correct: 0,
+        explanation: 'Howard Gardner proposed the Theory of Multiple Intelligences in 1983, identifying eight distinct human intelligences including linguistic, logical-mathematical, spatial, and musical.'
+      },
+
+      // STATE GOVERNMENT
+      {
+        id: 'sg1',
+        exam: 'state-government',
+        subject: 'Indian Geography',
+        topic: 'Indian River Systems',
+        category: 'State PSC — Physical Geography',
+        question: 'Which is the largest brackish water coastal lagoon in India and the second largest in the world?',
+        options: ['Chilika Lake (Odisha)', 'Vembanad Lake (Kerala)', 'Pulicat Lake (Andhra/Tamil Nadu)', 'Loktak Lake (Manipur)'],
+        correct: 0,
+        explanation: 'Chilika Lake in Odisha is the largest brackish water lagoon in Asia and designated as India’s first wetland of international importance under the Ramsar Convention in 1981.'
+      },
+      {
+        id: 'sg2',
+        exam: 'state-government',
+        subject: 'Indian Polity',
+        topic: 'Fundamental Rights',
+        category: 'State PSC — Panchayati Raj',
+        question: 'Which constitutional amendment accorded constitutional status to Panchayati Raj Institutions in India?',
+        options: ['73rd Constitutional Amendment Act, 1992', '74th Constitutional Amendment Act, 1992', '42nd Constitutional Amendment Act, 1976', '44th Constitutional Amendment Act, 1978'],
+        correct: 0,
+        explanation: 'The 73rd Constitutional Amendment Act of 1992 added Part IX and the 11th Schedule to the Constitution, institutionalizing a 3-tier Panchayati Raj system.'
+      },
+
+      // DEFENCE
+      {
+        id: 'd1',
+        exam: 'defence',
+        subject: 'General Science',
+        topic: 'Space Missions & Defense',
+        category: 'Defence Exams (NDA & CDS)',
+        question: 'Where is the premier tri-services training institution National Defence Academy (NDA) located?',
+        options: ['Khadakwasla, Pune', 'Dehradun, Uttarakhand', 'Dundigal, Hyderabad', 'Ezhimala, Kerala'],
+        correct: 0,
+        explanation: 'The National Defence Academy (NDA) is situated at Khadakwasla near Pune, Maharashtra, serving as the joint services training institution for Army, Navy, and Air Force cadets.'
+      },
+
+      // POLICE
+      {
+        id: 'p1',
+        exam: 'police',
+        subject: 'General Science',
+        topic: 'Space Missions & Defense',
+        category: 'Police & Paramilitary Recruitment',
+        question: 'Which Central Armed Police Force (CAPF) is primarily tasked with guarding India’s high-altitude Indo-Tibetan border?',
+        options: ['ITBP (Indo-Tibetan Border Police)', 'BSF (Border Security Force)', 'CRPF (Central Reserve Police Force)', 'SSB (Sashastra Seema Bal)'],
+        correct: 0,
+        explanation: 'The Indo-Tibetan Border Police (ITBP), raised in 1962, guards India’s high-altitude Himalayan border spanning Ladakh to Arunachal Pradesh.'
+      }
+    ];
+
+    // State Variables
+    let activeQuestions = [];
+    let currentQIdx = 0;
+    let userAnswers = {}; // { [qIdx]: { selected: number|null, isCorrect: boolean, isReviewed: boolean, isVisited: boolean } }
+    let isTestMode = false;
+    let timerSeconds = 600; // 10 minutes for mock test
+    let timerInterval = null;
+    let testStartTime = null;
+
+    // 1. URL Parameter Parser
+    function getCategoryFromUrl() {
+      const pathParts = window.location.pathname.split('/').filter(Boolean);
+      const last = pathParts[pathParts.length - 1];
+      if (last && last !== 'mcqs' && last !== 'index.html') {
+        return last.replace('.html', '').toLowerCase();
+      }
+      const urlParams = new URLSearchParams(window.location.search);
+      return (urlParams.get('cat') || 'all').toLowerCase();
+    }
+
+    // 2. Filter Questions based on Exam, Subject, and Topic
+    function applyFilters() {
+      const cat = getCategoryFromUrl();
+      const subjectVal = document.getElementById('subjectFilterSelect').value;
+      const topicVal = document.getElementById('topicFilterSelect').value;
+
+      activeQuestions = ALL_MCQ_QUESTIONS.filter(q => {
+        const matchesExam = (cat === 'all' || q.exam === cat);
+        const matchesSubject = (subjectVal === 'all' || q.subject === subjectVal);
+        const matchesTopic = (topicVal === 'all' || q.topic === topicVal);
+        return matchesExam && matchesSubject && matchesTopic;
+      });
+
+      // Update counters
+      document.getElementById('availableQCount').textContent = `${activeQuestions.length} Questions`;
+      
+      // Reset state for new subset
+      currentQIdx = 0;
+      userAnswers = {};
+      renderQuestionPalette();
+      renderCurrentQuestion();
+    }
+
+    // 3. Render Question Palette
+    function renderQuestionPalette() {
+      const palette = document.getElementById('questionPaletteGrid');
+      palette.innerHTML = '';
+      document.getElementById('paletteCountText').textContent = `${activeQuestions.length} Total`;
+
+      activeQuestions.forEach((_, idx) => {
+        const btn = document.createElement('button');
+        btn.className = `mcq-palette-btn ${idx === currentQIdx ? 'active' : ''}`;
+        btn.textContent = idx + 1;
+        btn.setAttribute('aria-label', `Go to question ${idx + 1}`);
+
+        const state = userAnswers[idx];
+        if (state) {
+          if (state.isReviewed) {
+            btn.classList.add('is-review');
+          } else if (state.selected !== null && state.selected !== undefined) {
+            btn.classList.add('is-answered');
+          } else if (state.isVisited) {
+            btn.classList.add('is-skipped');
+          }
+        }
+
+        btn.onclick = () => {
+          markCurrentVisited();
+          currentQIdx = idx;
+          renderCurrentQuestion();
+        };
+
+        palette.appendChild(btn);
+      });
+
+      updateStatsSummary();
+    }
+
+    function markCurrentVisited() {
+      if (!userAnswers[currentQIdx]) {
+        userAnswers[currentQIdx] = { selected: null, isCorrect: false, isReviewed: false, isVisited: true };
+      } else {
+        userAnswers[currentQIdx].isVisited = true;
+      }
+    }
+
+    function updateStatsSummary() {
+      let attempted = 0;
+      let review = 0;
+      let unattempted = 0;
+
+      activeQuestions.forEach((_, idx) => {
+        const state = userAnswers[idx];
+        if (state && state.selected !== null && state.selected !== undefined) {
+          attempted++;
+        } else {
+          unattempted++;
+        }
+        if (state && state.isReviewed) {
+          review++;
+        }
+      });
+
+      document.getElementById('statAttempted').textContent = attempted;
+      document.getElementById('statUnattempted').textContent = unattempted;
+      document.getElementById('statReview').textContent = review;
+      document.getElementById('mcqAnsweredCountBadge').textContent = `${attempted} Answered`;
+
+      // Update Visual Progress Bar
+      const pct = activeQuestions.length > 0 ? Math.round((attempted / activeQuestions.length) * 100) : 0;
+      document.getElementById('mcqProgressBarFill').style.width = `${pct}%`;
+      document.getElementById('mcqProgressText').textContent = `Question ${currentQIdx + 1} of ${activeQuestions.length} (${pct}% completed)`;
+    }
+
+    // 4. Render Current Question
+    function renderCurrentQuestion() {
+      if (activeQuestions.length === 0) {
+        document.getElementById('mcqQuestionText').textContent = 'No questions found matching your filter selection. Please try selecting All Subjects or All Topics.';
+        document.getElementById('mcqOptionsContainer').innerHTML = '';
+        document.getElementById('mcqExplanationBox').style.display = 'none';
+        return;
+      }
+
+      markCurrentVisited();
+
+      const q = activeQuestions[currentQIdx];
+      document.getElementById('mcqQNum').textContent = `Question ${currentQIdx + 1} of ${activeQuestions.length}`;
+      document.getElementById('mcqCategoryTag').textContent = `${q.category} • ${q.subject}`;
+      document.getElementById('questionPrefix').textContent = `Q${currentQIdx + 1}.`;
+      document.getElementById('mcqQuestionText').textContent = q.question;
+
+      // Update Dots
+      const dotsBox = document.getElementById('mcqQuestionDots');
+      dotsBox.innerHTML = '';
+      activeQuestions.forEach((_, idx) => {
+        const dot = document.createElement('button');
+        dot.className = `mcq-qdot ${idx === currentQIdx ? 'active' : ''}`;
+        dot.textContent = idx + 1;
+        const state = userAnswers[idx];
+        if (state) {
+          if (!isTestMode && state.selected !== null) {
+            dot.classList.add(state.isCorrect ? 'is-correct' : 'is-wrong');
+          } else if (state.selected !== null) {
+            dot.classList.add('answered');
+          }
+        }
+        dot.onclick = () => {
+          markCurrentVisited();
+          currentQIdx = idx;
+          renderCurrentQuestion();
+        };
+        dotsBox.appendChild(dot);
+      });
+
+      // Nav buttons state
+      document.getElementById('prevMcqBtn').disabled = (currentQIdx === 0);
+      const nextBtn = document.getElementById('nextMcqBtn');
+      if (currentQIdx === activeQuestions.length - 1) {
+        nextBtn.innerHTML = isTestMode ? `Submit Test <i class="fas fa-check-double"></i>` : `Finish Set <i class="fas fa-flag-checkered"></i>`;
+      } else {
+        nextBtn.innerHTML = `Next Question <i class="fas fa-chevron-right"></i>`;
+      }
+
+      // Options Rendering
+      const optionsBox = document.getElementById('mcqOptionsContainer');
+      optionsBox.innerHTML = '';
+      const optionLetters = ['A', 'B', 'C', 'D'];
+      const answered = userAnswers[currentQIdx];
+
+      q.options.forEach((optText, optIdx) => {
+        const btn = document.createElement('button');
+        btn.className = 'mcq-option-btn';
+        btn.innerHTML = `
+          <span class="option-key">${optionLetters[optIdx]}</span>
+          <span class="option-label">${optText}</span>
+          <span class="option-status-icon"></span>
+        `;
+
+        if (answered && answered.selected === optIdx) {
+          btn.classList.add('selected');
+        }
+
+        // In Study Mode, immediately highlight green/red and lock
+        if (!isTestMode && answered && answered.selected !== null) {
+          btn.disabled = true;
+          if (optIdx === q.correct) {
+            btn.classList.add('correct');
+          } else if (optIdx === answered.selected && !answered.isCorrect) {
+            btn.classList.add('wrong');
+          }
+        } else {
+          btn.onclick = () => selectOption(optIdx);
+        }
+
+        optionsBox.appendChild(btn);
+      });
+
+      // Explanation Box (Only shown immediately in Study Mode if answered)
+      const expBox = document.getElementById('mcqExplanationBox');
+      const expText = document.getElementById('mcqExplanationText');
+      if (!isTestMode && answered && answered.selected !== null) {
+        expBox.style.display = 'block';
+        expText.innerHTML = `<strong>${answered.isCorrect ? '✅ Correct Answer!' : '❌ Incorrect.'} Option ${optionLetters[q.correct]} (${q.options[q.correct]})</strong><br/>${q.explanation}`;
+      } else {
+        expBox.style.display = 'none';
+      }
+
+      // Update Mark for Review and Clear buttons
+      const markBtn = document.getElementById('markReviewBtn');
+      const clearBtn = document.getElementById('clearAnswerBtn');
+      if (isTestMode) {
+        markBtn.style.display = 'inline-flex';
+        clearBtn.style.display = 'inline-flex';
+        markBtn.innerHTML = answered && answered.isReviewed ? '<i class="fas fa-flag text-gold"></i> Unmark' : '<i class="far fa-flag"></i> Mark for Review';
+      } else {
+        markBtn.style.display = 'none';
+        clearBtn.style.display = 'none';
+      }
+
+      // Score Display
+      updateScoreboardDisplay();
+      renderQuestionPalette();
+    }
+
+    // 5. Select Option Handler
+    function selectOption(optIdx) {
+      const q = activeQuestions[currentQIdx];
+      const isCorrect = (optIdx === q.correct);
+
+      if (!userAnswers[currentQIdx]) {
+        userAnswers[currentQIdx] = { selected: optIdx, isCorrect: isCorrect, isReviewed: false, isVisited: true };
+      } else {
+        userAnswers[currentQIdx].selected = optIdx;
+        userAnswers[currentQIdx].isCorrect = isCorrect;
+        userAnswers[currentQIdx].isVisited = true;
+      }
+
+      renderCurrentQuestion();
+    }
+
+    // 6. Scoreboard Calculation
+    function updateScoreboardDisplay() {
+      let correct = 0;
+      let totalAttempted = 0;
+      Object.keys(userAnswers).forEach(k => {
+        if (userAnswers[k].selected !== null && userAnswers[k].selected !== undefined) {
+          totalAttempted++;
+          if (userAnswers[k].isCorrect) correct++;
+        }
+      });
+      document.getElementById('mcqScoreDisplay').textContent = `${correct} / ${activeQuestions.length}`;
+    }
+
+    // 7. Navigation Controls
+    document.getElementById('prevMcqBtn').onclick = () => {
+      if (currentQIdx > 0) {
+        currentQIdx--;
+        renderCurrentQuestion();
+      }
+    };
+
+    document.getElementById('nextMcqBtn').onclick = () => {
+      if (currentQIdx < activeQuestions.length - 1) {
+        currentQIdx++;
+        renderCurrentQuestion();
+      } else {
+        finishPracticeTest();
+      }
+    };
+
+    // Keyboard Arrow Navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
+      if (e.key === 'ArrowRight' && currentQIdx < activeQuestions.length - 1) {
+        currentQIdx++;
+        renderCurrentQuestion();
+      } else if (e.key === 'ArrowLeft' && currentQIdx > 0) {
+        currentQIdx--;
+        renderCurrentQuestion();
+      }
+    });
+
+    // Mark for Review Button
+    document.getElementById('markReviewBtn').onclick = () => {
+      if (!userAnswers[currentQIdx]) {
+        userAnswers[currentQIdx] = { selected: null, isCorrect: false, isReviewed: true, isVisited: true };
+      } else {
+        userAnswers[currentQIdx].isReviewed = !userAnswers[currentQIdx].isReviewed;
+      }
+      renderCurrentQuestion();
+    };
+
+    // Clear Answer Button
+    document.getElementById('clearAnswerBtn').onclick = () => {
+      if (userAnswers[currentQIdx]) {
+        userAnswers[currentQIdx].selected = null;
+        userAnswers[currentQIdx].isCorrect = false;
+      }
+      renderCurrentQuestion();
+    };
+
+    // Submit Practice Test Button
+    document.getElementById('submitTestBtn').onclick = finishPracticeTest;
+
+    // 8. Test Mode Timer & Submission
+    function startTimer() {
+      clearInterval(timerInterval);
+      testStartTime = Date.now();
+      timerInterval = setInterval(() => {
+        if (timerSeconds <= 0) {
+          clearInterval(timerInterval);
+          finishPracticeTest();
+          return;
+        }
+        timerSeconds--;
+        const mins = Math.floor(timerSeconds / 60);
+        const secs = timerSeconds % 60;
+        document.getElementById('speedTimer').textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+        // Warning color when under 2 minutes
+        if (timerSeconds <= 120) {
+          document.getElementById('speedTimer').style.color = '#ef4444';
+        } else {
+          document.getElementById('speedTimer').style.color = '#fbbf24';
+        }
+      }, 1000);
+    }
+
+    // 9. Finish Practice Test & Render Scorecard
+    function finishPracticeTest() {
+      clearInterval(timerInterval);
+      const totalQ = activeQuestions.length;
+      let correct = 0;
+      let wrong = 0;
+      let attempted = 0;
+
+      activeQuestions.forEach((_, idx) => {
+        const ans = userAnswers[idx];
+        if (ans && ans.selected !== null && ans.selected !== undefined) {
+          attempted++;
+          if (ans.isCorrect) correct++;
+          else wrong++;
+        }
+      });
+
+      const finalMarks = (correct * 2) - (wrong * 0.5);
+      const accuracy = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
+      
+      const secondsSpent = 600 - timerSeconds;
+      const minsSpent = Math.floor(secondsSpent / 60);
+      const remSecs = secondsSpent % 60;
+      const timeTakenStr = `${minsSpent}m ${remSecs}s`;
+
+      // Populate Scorecard Modal
+      document.getElementById('scTotalQuestions').textContent = totalQ;
+      document.getElementById('scCorrectCount').textContent = correct;
+      document.getElementById('scIncorrectCount').textContent = wrong;
+      document.getElementById('scFinalScore').textContent = finalMarks > 0 ? `+${finalMarks}` : finalMarks;
+      document.getElementById('scAccuracy').textContent = `${accuracy}%`;
+      document.getElementById('scTimeTaken').textContent = timeTakenStr;
+
+      // Evaluation Text
+      let feedback = '';
+      if (accuracy >= 80 && attempted >= Math.round(totalQ * 0.75)) {
+        feedback = '🌟 Outstanding performance! Your concept accuracy and time management are at top percentile level. Keep revising revision notes.';
+      } else if (accuracy >= 50) {
+        feedback = '👍 Solid attempt. Review the incorrect questions below to eliminate negative marks and strengthen specific topics.';
+      } else {
+        feedback = '⚠️ More practice recommended. Focus on subject foundational concepts and retake the practice set to improve accuracy.';
+      }
+      document.getElementById('scorecardFeedbackText').textContent = feedback;
+
+      // Show Modal
+      document.getElementById('scorecardModal').classList.add('active');
+    }
+
+    document.getElementById('closeScorecardBtn').onclick = () => {
+      document.getElementById('scorecardModal').classList.remove('active');
+      // In review mode, show explanations for all questions
+      isTestMode = false;
+      document.getElementById('modeStudyBtn').classList.add('active');
+      document.getElementById('modeMockBtn').classList.remove('active');
+      renderCurrentQuestion();
+    };
+
+    document.getElementById('retakeTestBtn').onclick = () => {
+      document.getElementById('scorecardModal').classList.remove('active');
+      restartPracticeSet();
+    };
+
+    // 10. Mode Toggling
+    const modeStudyBtn = document.getElementById('modeStudyBtn');
+    const modeMockBtn = document.getElementById('modeMockBtn');
+
+    modeStudyBtn.onclick = () => {
+      isTestMode = false;
+      modeStudyBtn.classList.add('active');
+      modeMockBtn.classList.remove('active');
+      document.getElementById('submitTestBtn').style.display = 'none';
+      document.getElementById('widgetBadge').textContent = 'Study Mode';
+      document.getElementById('timerLabel').textContent = 'Sprint Timer';
+      clearInterval(timerInterval);
+      document.getElementById('speedTimer').textContent = 'Active';
+      renderCurrentQuestion();
+    };
+
+    modeMockBtn.onclick = () => {
+      isTestMode = true;
+      modeMockBtn.classList.add('active');
+      modeStudyBtn.classList.remove('active');
+      document.getElementById('submitTestBtn').style.display = 'inline-flex';
+      document.getElementById('widgetBadge').textContent = 'Timed Mock Test';
+      document.getElementById('timerLabel').textContent = 'Mock Test Clock';
+      timerSeconds = Math.max(300, activeQuestions.length * 60); // 1 min per question
+      startTimer();
+      renderCurrentQuestion();
+    };
+
+    // 11. Restart Function
+    function restartPracticeSet() {
+      currentQIdx = 0;
+      userAnswers = {};
+      timerSeconds = Math.max(300, activeQuestions.length * 60);
+      if (isTestMode) startTimer();
+      renderCurrentQuestion();
+    }
+    document.getElementById('restartPracticeBtn').onclick = restartPracticeSet;
+
+    // 12. Category, Subject & Topic Listeners
+    document.getElementById('subjectFilterSelect').onchange = applyFilters;
+    document.getElementById('topicFilterSelect').onchange = applyFilters;
+
+    function getCategoryFromUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('category')) return urlParams.get('category').toLowerCase();
+      if (urlParams.get('exam')) return urlParams.get('exam').toLowerCase();
+      const pathSegments = window.location.pathname.split('/').filter(Boolean);
+      const lastSeg = pathSegments[pathSegments.length - 1];
+      if (lastSeg && lastSeg !== 'index.html' && lastSeg !== 'mcqs') {
+        return lastSeg.toLowerCase();
+      }
+      return 'all';
+    }
+
+    // Initializer
+    function init() {
+      const cat = getCategoryFromUrl();
+      document.querySelectorAll('.mcq-cat-btn').forEach(btn => {
+        if (btn.getAttribute('data-cat') === cat) btn.classList.add('active');
+        else btn.classList.remove('active');
+
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetCat = btn.getAttribute('data-cat') || 'all';
+          const newUrl = targetCat === 'all' ? window.location.pathname : `${window.location.pathname}?category=${targetCat}`;
+          window.history.pushState({ category: targetCat }, '', newUrl);
+
+          document.querySelectorAll('.mcq-cat-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const formatted = targetCat === 'all' ? 'Practice' : targetCat.replace(/-/g, ' ').toUpperCase();
+          document.getElementById('breadcrumbCategoryName').textContent = `${formatted} MCQs`;
+          document.getElementById('mcqHeroTitle').textContent = `${formatted} Practice MCQs`;
+          document.getElementById('portalCategoryBadge').innerHTML = `<i class="fas fa-award"></i> ${formatted} Specialist Module`;
+
+          applyFilters();
+        });
+      });
+
+      if (cat !== 'all') {
+        const formatted = cat.replace(/-/g, ' ').toUpperCase();
+        document.getElementById('breadcrumbCategoryName').textContent = `${formatted} MCQs`;
+        document.getElementById('mcqHeroTitle').textContent = `${formatted} Practice MCQs`;
+        document.getElementById('portalCategoryBadge').innerHTML = `<i class="fas fa-award"></i> ${formatted} Specialist Module`;
+      }
+
+      applyFilters();
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+  <script src="../search.js"></script>
+</body>
+</html>

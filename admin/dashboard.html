@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Admin Dashboard | GK India Academy</title>
+  <meta name="description" content="GK India Academy Administrative Dashboard." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0a1c36" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="../assets/logo.png" />
+
+  <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Admin Stylesheet -->
+  <link rel="stylesheet" href="admin.css" />
+
+  <style>
+    /* Security cloak to avoid flashing protected content before session verification */
+    #admin-app-root {
+      display: none;
+    }
+    #admin-auth-loading {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--admin-navy-darkest);
+      color: #ffffff;
+      gap: 16px;
+      font-family: var(--admin-font-body);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Toast Notification Container -->
+  <div id="admin-toast-container" class="admin-toast-container" aria-live="polite"></div>
+
+  <!-- Loading Cloak while verifying session -->
+  <div id="admin-auth-loading" role="status" aria-live="polite">
+    <!-- Active Loading State -->
+    <div id="admin-auth-spinner-container" style="display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center;">
+      <div class="admin-btn-spinner" style="width: 36px; height: 36px; border-width: 3px; border-color: rgba(245, 158, 11, 0.2); border-top-color: #f59e0b;"></div>
+      <div id="admin-auth-loading-text" style="font-size: 0.95rem; color: #94a3b8; font-weight: 500; letter-spacing: 0.02em;">Verifying Administrator Access...</div>
+    </div>
+
+    <!-- Error / Alert State (Shown if authentication service or verification fails) -->
+    <div id="admin-auth-error-card" style="display: none; max-width: 440px; margin: 20px; padding: 32px 28px; background: #0c1e38; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+      <div id="admin-auth-error-icon" style="width: 56px; height: 56px; border-radius: 50%; background: rgba(239, 68, 68, 0.15); color: #ef4444; display: inline-flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 16px;">
+        <i class="fas fa-triangle-exclamation"></i>
+      </div>
+      <h2 id="admin-auth-error-title" style="font-size: 1.25rem; font-weight: 700; color: #ffffff; margin: 0 0 10px 0; font-family: 'Outfit', sans-serif;">Authentication Verification Failed</h2>
+      <p id="admin-auth-error-message" style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6; margin: 0 0 24px 0;">The authentication service was unable to verify administrator credentials.</p>
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <button id="admin-auth-retry-btn" type="button" class="admin-btn-secondary" style="padding: 10px 20px; font-size: 0.88rem; border-radius: 8px; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: #ffffff;">
+          <i class="fas fa-rotate-right" style="margin-right: 6px;"></i> Retry
+        </button>
+        <a id="admin-auth-login-link" href="login.html" class="admin-btn-primary" style="padding: 10px 20px; font-size: 0.88rem; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; color: #071526; background: #f59e0b; font-weight: 600;">
+          <i class="fas fa-arrow-left" style="margin-right: 6px;"></i> Return to Admin Login
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reusable Admin Layout -->
+  <div id="admin-app-root" class="admin-layout">
+
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div id="admin-sidebar-overlay" class="admin-sidebar-overlay"></div>
+
+    <!-- Admin Sidebar Navigation -->
+    <aside id="admin-sidebar" class="admin-sidebar" aria-label="Admin Navigation">
+      
+      <!-- Sidebar Header -->
+      <div class="admin-sidebar-header">
+        <a href="#dashboard" class="admin-sidebar-brand">
+          <img src="../assets/logo.png" alt="GK India Academy Logo" class="admin-sidebar-logo" />
+          <div class="admin-sidebar-brand-text">
+            <span class="admin-sidebar-brand-name">GK India Academy</span>
+            <span class="admin-sidebar-badge">Administration</span>
+          </div>
+        </a>
+        <button id="admin-sidebar-close" class="admin-sidebar-close-btn" aria-label="Close sidebar">
+          <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="admin-sidebar-nav">
+        <div class="admin-nav-category">Main Menu</div>
+        <ul class="admin-nav-list">
+          <li class="admin-nav-item">
+            <a href="#dashboard" class="admin-nav-link active">
+              <span class="admin-nav-icon"><i class="fas fa-chart-pie"></i></span>
+              <span>Dashboard</span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="admin-nav-category">Content Management</div>
+        <ul class="admin-nav-list">
+          <li class="admin-nav-item">
+            <a href="#topics" class="admin-nav-link" title="Topics CMS">
+              <span class="admin-nav-icon"><i class="fas fa-layer-group"></i></span>
+              <span>Topics</span>
+              <span class="admin-nav-badge" id="sidebar-topics-badge">0</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="#questions" class="admin-nav-link" title="Questions (MCQs) CMS">
+              <span class="admin-nav-icon"><i class="fas fa-circle-question"></i></span>
+              <span>Questions (MCQs)</span>
+              <span class="admin-nav-badge" id="sidebar-questions-badge">0</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="#current-affairs" class="admin-nav-link" title="Current Affairs CMS">
+              <span class="admin-nav-icon"><i class="fas fa-newspaper"></i></span>
+              <span>Current Affairs</span>
+              <span class="admin-nav-badge" id="sidebar-affairs-badge">0</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="#exams" class="admin-nav-link" title="Government Exams CMS">
+              <span class="admin-nav-icon"><i class="fas fa-graduation-cap"></i></span>
+              <span>Government Exams</span>
+              <span class="admin-nav-badge" id="sidebar-exams-badge">0</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="#study-materials" class="admin-nav-link" title="Study Materials CMS">
+              <span class="admin-nav-icon"><i class="fas fa-book-open"></i></span>
+              <span>Study Materials</span>
+              <span class="admin-nav-badge" id="sidebar-materials-badge">0</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="#contact-messages" class="admin-nav-link" title="Contact Inquiries & Candidate Messages">
+              <span class="admin-nav-icon"><i class="fas fa-inbox"></i></span>
+              <span>Contact Messages</span>
+              <span class="admin-nav-badge" id="sidebar-msg-badge">0</span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="admin-nav-category">Quick Shortcuts</div>
+        <ul class="admin-nav-list">
+          <li class="admin-nav-item">
+            <a href="/" target="_blank" class="admin-nav-link">
+              <span class="admin-nav-icon"><i class="fas fa-arrow-up-right-from-square"></i></span>
+              <span>Public Website</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="../mcqs/index.html" target="_blank" class="admin-nav-link">
+              <span class="admin-nav-icon"><i class="fas fa-play"></i></span>
+              <span>Practice Portal</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Sidebar Footer with User Details & Logout -->
+      <div class="admin-sidebar-footer">
+        <div class="admin-user-profile">
+          <div class="admin-avatar" id="sidebar-user-avatar">A</div>
+          <div class="admin-user-details">
+            <span class="admin-user-email" id="sidebar-user-email">admin@gkindiaacademy.com</span>
+            <span class="admin-user-role-badge"><i class="fas fa-shield-alt"></i> Administrator</span>
+          </div>
+        </div>
+        <button id="admin-sidebar-logout-btn" class="admin-logout-btn" type="button">
+          <i class="fas fa-arrow-right-from-bracket" aria-hidden="true"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- Main Workspace Area -->
+    <div class="admin-main-wrap">
+      
+      <!-- Top Navigation Bar -->
+      <header class="admin-topbar">
+        <div class="admin-topbar-left">
+          <button id="admin-mobile-toggle" class="admin-mobile-menu-btn" aria-label="Open navigation menu">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+          </button>
+          <div class="admin-breadcrumb">
+            <span>Admin</span>
+            <span><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i></span>
+            <span class="admin-breadcrumb-active">Dashboard</span>
+          </div>
+        </div>
+
+        <div class="admin-topbar-right">
+          <span class="admin-status-pill">
+            <span class="admin-status-dot"></span>
+            <span>Session Secure</span>
+          </span>
+          <a href="#contact-messages" class="admin-site-link-btn" title="View Inquiries">
+            <i class="fas fa-envelope"></i>
+            <span>Inquiries</span>
+            <span id="topbar-msg-badge" class="admin-topbar-badge" style="display: none; background: #ef4444; color: #ffffff; border-radius: 10px; padding: 2px 7px; font-size: 0.72rem; font-weight: 700; margin-left: 6px;">0</span>
+          </a>
+          <a href="/" target="_blank" class="admin-site-link-btn" title="Open Public Website in new tab">
+            <i class="fas fa-arrow-up-right-from-square"></i>
+            <span>View Website</span>
+          </a>
+          <button id="admin-topbar-logout-btn" class="admin-site-link-btn" style="background-color: var(--admin-red-soft); color: var(--admin-red); border: none; cursor: pointer;" type="button">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Dashboard Main Content -->
+      <main class="admin-content">
+
+        <!-- Unconfigured Alert (If opened without Supabase .env setup) -->
+        <div id="admin-unconfigured-alert" class="admin-alert admin-alert-warning" role="alert" style="display: none; margin-bottom: 24px;">
+          <i class="fas fa-triangle-exclamation" aria-hidden="true"></i>
+          <div>
+            <strong>Notice:</strong> Running in local administrative mode. To connect directly to Supabase cloud, provide your <code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code> in the <code>.env</code> file.
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             VIEW 1: DASHBOARD OVERVIEW
+             =================================================================== -->
+        <section id="view-dashboard" class="admin-view-panel is-active">
+          
+          <!-- Hero Welcome Banner -->
+          <div class="admin-dashboard-hero">
+            <div class="admin-hero-eyebrow">
+              <i class="fas fa-shield-halved"></i> Management Console
+            </div>
+            <h1 class="admin-hero-heading">GK India Academy Administration</h1>
+            <p class="admin-hero-welcome">
+              Welcome back, <strong id="admin-display-name">Academy Administrator</strong>. Manage topics, questions, current affairs, exams, and candidate inquiries.
+            </p>
+          </div>
+
+          <!-- KPI Metric Cards Grid -->
+          <div class="admin-kpi-grid">
+            
+            <a href="#topics" class="admin-kpi-card">
+              <div class="admin-kpi-icon" style="background: #eff6ff; color: #2563eb;">
+                <i class="fas fa-layer-group"></i>
+              </div>
+              <div class="admin-kpi-info">
+                <span class="admin-kpi-number" id="kpi-topics-count">0</span>
+                <span class="admin-kpi-label">Active Topics</span>
+                <span class="admin-kpi-sub" id="kpi-topics-sub">0 Published</span>
+              </div>
+            </a>
+
+            <a href="#questions" class="admin-kpi-card">
+              <div class="admin-kpi-icon" style="background: #fef3c7; color: #d97706;">
+                <i class="fas fa-circle-question"></i>
+              </div>
+              <div class="admin-kpi-info">
+                <span class="admin-kpi-number" id="kpi-questions-count">0</span>
+                <span class="admin-kpi-label">Practice Questions</span>
+                <span class="admin-kpi-sub" id="kpi-questions-sub">Easy / Med / Hard</span>
+              </div>
+            </a>
+
+            <a href="#current-affairs" class="admin-kpi-card">
+              <div class="admin-kpi-icon" style="background: #ecfdf5; color: #059669;">
+                <i class="fas fa-newspaper"></i>
+              </div>
+              <div class="admin-kpi-info">
+                <span class="admin-kpi-number" id="kpi-affairs-count">0</span>
+                <span class="admin-kpi-label">Current Affairs</span>
+                <span class="admin-kpi-sub" style="color: #059669;">Daily Digests</span>
+              </div>
+            </a>
+
+            <a href="#exams" class="admin-kpi-card">
+              <div class="admin-kpi-icon" style="background: #fdf2f8; color: #db2777;">
+                <i class="fas fa-graduation-cap"></i>
+              </div>
+              <div class="admin-kpi-info">
+                <span class="admin-kpi-number" id="kpi-exams-count">0</span>
+                <span class="admin-kpi-label">Government Exams</span>
+                <span class="admin-kpi-sub" style="color: #db2777;">UPSC, SSC, RRB</span>
+              </div>
+            </a>
+
+            <a href="#study-materials" class="admin-kpi-card">
+              <div class="admin-kpi-icon" style="background: #f5f3ff; color: #7c3aed;">
+                <i class="fas fa-book-open"></i>
+              </div>
+              <div class="admin-kpi-info">
+                <span class="admin-kpi-number" id="kpi-materials-count">0</span>
+                <span class="admin-kpi-label">Study Materials</span>
+                <span class="admin-kpi-sub" style="color: #7c3aed;">PDFs & Formulas</span>
+              </div>
+            </a>
+
+            <a href="#contact-messages" class="admin-kpi-card">
+              <div class="admin-kpi-icon" style="background: #fff7ed; color: #ea580c;">
+                <i class="fas fa-inbox"></i>
+              </div>
+              <div class="admin-kpi-info">
+                <span class="admin-kpi-number" id="kpi-messages-count">0</span>
+                <span class="admin-kpi-label">Candidate Messages</span>
+                <span class="admin-kpi-sub" id="kpi-messages-sub">0 Unread</span>
+              </div>
+            </a>
+
+          </div>
+
+          <!-- Quick Action Bar -->
+          <div class="admin-quick-actions">
+            <span class="admin-quick-title"><i class="fas fa-bolt text-gold"></i> Quick Actions:</span>
+            <button type="button" class="admin-btn-action admin-btn-accent" onclick="openQuestionModal()">
+              <i class="fas fa-plus"></i> Add Question
+            </button>
+            <button type="button" class="admin-btn-action" onclick="openAffairsModal()">
+              <i class="fas fa-plus"></i> New Current Affairs
+            </button>
+            <button type="button" class="admin-btn-action" onclick="openTopicModal()">
+              <i class="fas fa-plus"></i> New Topic
+            </button>
+            <button type="button" class="admin-btn-action" onclick="openExamModal()">
+              <i class="fas fa-plus"></i> Add Exam
+            </button>
+            <button type="button" class="admin-btn-action" onclick="openMaterialModal()">
+              <i class="fas fa-file-arrow-up"></i> Upload Material
+            </button>
+            <button type="button" class="admin-btn-action" onclick="simulateTestMessage()">
+              <i class="fas fa-comment-dots"></i> Simulate Inquiry
+            </button>
+          </div>
+
+          <!-- Recent Activity & Updates Section -->
+          <div class="admin-section-header">
+            <div>
+              <h2 class="admin-section-title">Recent Updates & Activity</h2>
+              <p class="admin-section-subtitle">Latest changes across questions, news, exams and candidate queries</p>
+            </div>
+            <a href="#questions" class="admin-btn-action" style="font-size: 0.8rem;">
+              <span>View All Content</span> <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <div class="admin-activity-list" id="dashboard-activity-list">
+            <!-- Populated dynamically via JS -->
+          </div>
+
+          <!-- Security Architecture Banner -->
+          <div class="admin-security-banner">
+            <div class="admin-security-icon">
+              <i class="fas fa-shield-check"></i>
+            </div>
+            <div class="admin-security-text">
+              <h4>Unified CMS & Local Synchronization Active</h4>
+              <p>
+                All modules (Topics, Questions, Current Affairs, Exams, Study Materials, and Contact Messages) support full CRUD, 1-click Draft/Publish status toggling, and instant search & filtering.
+              </p>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ===================================================================
+             VIEW 2: TOPICS MANAGEMENT
+             =================================================================== -->
+        <section id="view-topics" class="admin-view-panel">
+          <div class="admin-section-header">
+            <div>
+              <h2 class="admin-section-title">Topics Management</h2>
+              <p class="admin-section-subtitle">Organize core subjects, syllabus chapters, and question categories</p>
+            </div>
+            <button type="button" class="admin-btn-action admin-btn-accent" onclick="openTopicModal()">
+              <i class="fas fa-plus"></i> Add New Topic
+            </button>
+          </div>
+
+          <!-- Search & Filter Toolbar -->
+          <div class="admin-toolbar">
+            <div class="admin-toolbar-left">
+              <div class="admin-search-wrapper">
+                <i class="fas fa-search admin-search-icon"></i>
+                <input type="text" id="filter-topics-search" class="admin-search-input" placeholder="Search topics by title, slug..." aria-label="Search topics by title or slug" />
+              </div>
+              <select id="filter-topics-subject" class="admin-select" aria-label="Filter by subject">
+                <option value="all">All Subjects</option>
+                <option value="Indian History">Indian History</option>
+                <option value="Indian Polity">Indian Polity</option>
+                <option value="Indian Geography">Indian Geography</option>
+                <option value="Indian Economy">Indian Economy</option>
+                <option value="General Science">General Science</option>
+                <option value="Environment & Ecology">Environment & Ecology</option>
+                <option value="Art & Culture">Art & Culture</option>
+                <option value="Static GK">Static GK</option>
+              </select>
+              <select id="filter-topics-status" class="admin-select" aria-label="Filter by status">
+                <option value="all">All Status</option>
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+              </select>
+              <button type="button" id="btn-clear-topics" class="admin-btn-clear" title="Clear filters">
+                <i class="fas fa-rotate-left"></i> Reset
+              </button>
+            </div>
+            <div class="admin-toolbar-right">
+              <span id="topics-count-label" style="font-size: 0.8rem; color: var(--admin-text-muted); font-weight: 600;">Showing 0 topics</span>
+            </div>
+          </div>
+
+          <!-- Topics Data Table -->
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Topic Title &amp; Slug</th>
+                  <th>Subject Category</th>
+                  <th>Questions</th>
+                  <th>Created Date</th>
+                  <th>Status (Click to toggle)</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="topics-table-body">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             VIEW 3: QUESTIONS MANAGEMENT
+             =================================================================== -->
+        <section id="view-questions" class="admin-view-panel">
+          <div class="admin-section-header">
+            <div>
+              <h2 class="admin-section-title">Practice Questions (MCQs)</h2>
+              <p class="admin-section-subtitle">Create, review, update multiple choice questions with explanations</p>
+            </div>
+            <button type="button" class="admin-btn-action admin-btn-accent" onclick="openQuestionModal()">
+              <i class="fas fa-plus"></i> Add Question
+            </button>
+          </div>
+
+          <!-- Search & Filter Toolbar -->
+          <div class="admin-toolbar">
+            <div class="admin-toolbar-left">
+              <div class="admin-search-wrapper">
+                <i class="fas fa-search admin-search-icon"></i>
+                <input type="text" id="filter-questions-search" class="admin-search-input" placeholder="Search questions, explanations..." aria-label="Search questions or explanations" />
+              </div>
+              <select id="filter-questions-subject" class="admin-select" aria-label="Filter by subject">
+                <option value="all">All Subjects</option>
+                <option value="Indian History">Indian History</option>
+                <option value="Indian Polity">Indian Polity</option>
+                <option value="Indian Geography">Indian Geography</option>
+                <option value="Indian Economy">Indian Economy</option>
+                <option value="General Science">General Science</option>
+                <option value="Environment & Ecology">Environment & Ecology</option>
+                <option value="Art & Culture">Art & Culture</option>
+              </select>
+              <select id="filter-questions-diff" class="admin-select" aria-label="Filter by difficulty">
+                <option value="all">All Difficulties</option>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+              <select id="filter-questions-status" class="admin-select" aria-label="Filter by status">
+                <option value="all">All Status</option>
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+              </select>
+              <button type="button" id="btn-clear-questions" class="admin-btn-clear" title="Clear filters">
+                <i class="fas fa-rotate-left"></i> Reset
+              </button>
+            </div>
+            <div class="admin-toolbar-right">
+              <span id="questions-count-label" style="font-size: 0.8rem; color: var(--admin-text-muted); font-weight: 600;">Showing 0 questions</span>
+            </div>
+          </div>
+
+          <!-- Questions Data Table -->
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Question &amp; Answer</th>
+                  <th>Subject &amp; Topic</th>
+                  <th>Difficulty</th>
+                  <th>Created Date</th>
+                  <th>Status (Click to toggle)</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="questions-table-body">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             VIEW 4: CURRENT AFFAIRS MANAGEMENT
+             =================================================================== -->
+        <section id="view-current-affairs" class="admin-view-panel">
+          <div class="admin-section-header">
+            <div>
+              <h2 class="admin-section-title">Current Affairs Management</h2>
+              <p class="admin-section-subtitle">Publish daily headlines, monthly summaries, science and economic developments</p>
+            </div>
+            <button type="button" class="admin-btn-action admin-btn-accent" onclick="openAffairsModal()">
+              <i class="fas fa-plus"></i> Add Current Affairs
+            </button>
+          </div>
+
+          <!-- Search & Filter Toolbar -->
+          <div class="admin-toolbar">
+            <div class="admin-toolbar-left">
+              <div class="admin-search-wrapper">
+                <i class="fas fa-search admin-search-icon"></i>
+                <input type="text" id="filter-affairs-search" class="admin-search-input" placeholder="Search headlines, tags..." aria-label="Search current affairs headlines or tags" />
+              </div>
+              <select id="filter-affairs-category" class="admin-select" aria-label="Filter by category">
+                <option value="all">All Categories</option>
+                <option value="Economy & Infrastructure">Economy & Infrastructure</option>
+                <option value="Science & Technology">Science & Technology</option>
+                <option value="Environment & Energy">Environment & Energy</option>
+                <option value="Sports & Awards">Sports & Awards</option>
+                <option value="Defense & Security">Defense & Security</option>
+                <option value="National">National</option>
+                <option value="International">International</option>
+              </select>
+              <select id="filter-affairs-status" class="admin-select" aria-label="Filter by status">
+                <option value="all">All Status</option>
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+              </select>
+              <button type="button" id="btn-clear-affairs" class="admin-btn-clear" title="Clear filters">
+                <i class="fas fa-rotate-left"></i> Reset
+              </button>
+            </div>
+            <div class="admin-toolbar-right">
+              <span id="affairs-count-label" style="font-size: 0.8rem; color: var(--admin-text-muted); font-weight: 600;">Showing 0 articles</span>
+            </div>
+          </div>
+
+          <!-- Current Affairs Data Table -->
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Headline, Summary &amp; Tags</th>
+                  <th>Category</th>
+                  <th>Date</th>
+                  <th>Status (Click to toggle)</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="affairs-table-body">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             VIEW 5: GOVERNMENT EXAMS MANAGEMENT
+             =================================================================== -->
+        <section id="view-exams" class="admin-view-panel">
+          <div class="admin-section-header">
+            <div>
+              <h2 class="admin-section-title">Government Exams Management</h2>
+              <p class="admin-section-subtitle">Manage exam details, vacancies, eligibility criteria, and syllabus</p>
+            </div>
+            <button type="button" class="admin-btn-action admin-btn-accent" onclick="openExamModal()">
+              <i class="fas fa-plus"></i> Add New Exam
+            </button>
+          </div>
+
+          <!-- Search & Filter Toolbar -->
+          <div class="admin-toolbar">
+            <div class="admin-toolbar-left">
+              <div class="admin-search-wrapper">
+                <i class="fas fa-search admin-search-icon"></i>
+                <input type="text" id="filter-exams-search" class="admin-search-input" placeholder="Search exams by title, agency, eligibility..." aria-label="Search exams by title, agency, or eligibility" />
+              </div>
+              <select id="filter-exams-category" class="admin-select" aria-label="Filter by exam category">
+                <option value="all">All Categories</option>
+                <option value="UPSC">UPSC Exams</option>
+                <option value="SSC">SSC Exams</option>
+                <option value="Railway">Railway Exams</option>
+                <option value="Banking">Banking Exams</option>
+                <option value="Defence">Defence Exams</option>
+                <option value="State PSC">State PSC</option>
+                <option value="Teaching">Teaching Exams</option>
+              </select>
+              <select id="filter-exams-status" class="admin-select" aria-label="Filter by status">
+                <option value="all">All Status</option>
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+              </select>
+              <button type="button" id="btn-clear-exams" class="admin-btn-clear" title="Clear filters">
+                <i class="fas fa-rotate-left"></i> Reset
+              </button>
+            </div>
+            <div class="admin-toolbar-right">
+              <span id="exams-count-label" style="font-size: 0.8rem; color: var(--admin-text-muted); font-weight: 600;">Showing 0 exams</span>
+            </div>
+          </div>
+
+          <!-- Government Exams Data Table -->
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Exam Title &amp; Agency</th>
+                  <th>Category &amp; Vacancies</th>
+                  <th>Important Dates</th>
+                  <th>Eligibility Overview</th>
+                  <th>Status (Click to toggle)</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="exams-table-body">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             VIEW 6: STUDY MATERIALS MANAGEMENT
+             =================================================================== -->
+        <section id="view-study-materials" class="admin-view-panel">
+          <div class="admin-section-header">
+            <div>
+              <h2 class="admin-section-title">Study Materials Management</h2>
+              <p class="admin-section-subtitle">Maintain downloadable PDFs, formula sheets, map charts, and revision notes</p>
+            </div>
+            <button type="button" class="admin-btn-action admin-btn-accent" onclick="openMaterialModal()">
+              <i class="fas fa-file-arrow-up"></i> Upload / Add Material
+            </button>
+          </div>
+
+          <!-- Search & Filter Toolbar -->
+          <div class="admin-toolbar">
+            <div class="admin-toolbar-left">
+              <div class="admin-search-wrapper">
+                <i class="fas fa-search admin-search-icon"></i>
+                <input type="text" id="filter-materials-search" class="admin-search-input" placeholder="Search materials by title, description..." aria-label="Search study materials by title or description" />
+              </div>
+              <select id="filter-materials-subject" class="admin-select" aria-label="Filter by subject">
+                <option value="all">All Subjects</option>
+                <option value="Indian Polity">Indian Polity</option>
+                <option value="Indian Geography">Indian Geography</option>
+                <option value="Indian History">Indian History</option>
+                <option value="Exam Preparation">Exam Preparation</option>
+                <option value="Current Affairs">Current Affairs</option>
+              </select>
+              <select id="filter-materials-type" class="admin-select" aria-label="Filter by type">
+                <option value="all">All Types</option>
+                <option value="PDF Document">PDF Document</option>
+                <option value="Quick Revision Notes">Quick Revision Notes</option>
+                <option value="Formula / Map Sheet">Formula / Map Sheet</option>
+                <option value="Syllabus Guide">Syllabus Guide</option>
+              </select>
+              <select id="filter-materials-status" class="admin-select" aria-label="Filter by status">
+                <option value="all">All Status</option>
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+              </select>
+              <button type="button" id="btn-clear-materials" class="admin-btn-clear" title="Clear filters">
+                <i class="fas fa-rotate-left"></i> Reset
+              </button>
+            </div>
+            <div class="admin-toolbar-right">
+              <span id="materials-count-label" style="font-size: 0.8rem; color: var(--admin-text-muted); font-weight: 600;">Showing 0 materials</span>
+            </div>
+          </div>
+
+          <!-- Study Materials Data Table -->
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Material Title &amp; Description</th>
+                  <th>Subject Category</th>
+                  <th>File Type</th>
+                  <th>Size / Pages</th>
+                  <th>Status (Click to toggle)</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="materials-table-body">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             VIEW 7: CONTACT MESSAGE MANAGEMENT
+             =================================================================== -->
+        <section id="view-contact-messages" class="admin-view-panel">
+          <div class="admin-section-header">
+            <div>
+              <h2 class="admin-section-title">Contact Messages &amp; Candidate Inquiries</h2>
+              <p class="admin-section-subtitle">Manage queries, test series doubts, and student feedback from the website</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="admin-btn-action" id="btn-mark-all-read">
+                <i class="fas fa-check-double"></i> Mark All as Read
+              </button>
+              <button type="button" class="admin-btn-action admin-btn-gold" onclick="simulateTestMessage()">
+                <i class="fas fa-magic"></i> Simulate Test Inquiry
+              </button>
+            </div>
+          </div>
+
+          <!-- Search & Filter Toolbar -->
+          <div class="admin-toolbar">
+            <div class="admin-toolbar-left">
+              <div class="admin-search-wrapper">
+                <i class="fas fa-search admin-search-icon"></i>
+                <input type="text" id="filter-messages-search" class="admin-search-input" placeholder="Search inquiries by name, email, query text..." aria-label="Search inquiries by name, email, or message" />
+              </div>
+              <select id="filter-messages-status" class="admin-select" aria-label="Filter by status">
+                <option value="all">All Inquiries</option>
+                <option value="unread">Unread Only</option>
+                <option value="read">Read</option>
+                <option value="replied">Replied</option>
+              </select>
+              <button type="button" id="btn-clear-messages" class="admin-btn-clear" title="Clear filters">
+                <i class="fas fa-rotate-left"></i> Reset
+              </button>
+            </div>
+            <div class="admin-toolbar-right">
+              <span id="messages-count-label" style="font-size: 0.8rem; color: var(--admin-text-muted); font-weight: 600;">Showing 0 inquiries</span>
+            </div>
+          </div>
+
+          <!-- Contact Messages Data Table -->
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Candidate &amp; Email</th>
+                  <th>Subject &amp; Message</th>
+                  <th>Received Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="messages-table-body">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+  <!-- =========================================================================
+       MODALS: CRUD EDITORS & DIALOGS
+       ========================================================================= -->
+
+  <!-- 1. Topic Editor Modal -->
+  <div id="modal-topic-editor" class="admin-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-topic-heading">
+    <div class="admin-modal-container">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="modal-topic-heading"><i class="fas fa-layer-group text-gold"></i> Topic Details</h3>
+        <button type="button" class="admin-modal-close" aria-label="Close dialog"><i class="fas fa-times"></i></button>
+      </div>
+      <form id="form-topic-editor">
+        <input type="hidden" id="topic-edit-id" />
+        <div class="admin-modal-body">
+          <div class="admin-form-group">
+            <label for="topic-input-title" class="admin-form-label">Topic Title <span class="required-star">*</span></label>
+            <input type="text" id="topic-input-title" class="admin-form-input" placeholder="e.g. Fundamental Rights & Writs" required />
+          </div>
+          <div class="admin-field-row">
+            <div class="admin-form-group">
+              <label for="topic-input-subject" class="admin-form-label">Subject Category <span class="required-star">*</span></label>
+              <select id="topic-input-subject" class="admin-form-select">
+                <option value="Indian History">Indian History</option>
+                <option value="Indian Polity">Indian Polity</option>
+                <option value="Indian Geography">Indian Geography</option>
+                <option value="Indian Economy">Indian Economy</option>
+                <option value="General Science">General Science</option>
+                <option value="Environment & Ecology">Environment & Ecology</option>
+                <option value="Art & Culture">Art & Culture</option>
+                <option value="Static GK">Static GK</option>
+              </select>
+            </div>
+            <div class="admin-form-group">
+              <label for="topic-input-slug" class="admin-form-label">URL Slug</label>
+              <input type="text" id="topic-input-slug" class="admin-form-input" placeholder="e.g. fundamental-rights-writs" />
+            </div>
+          </div>
+          <div class="admin-form-group">
+            <label for="topic-input-desc" class="admin-form-label">Description &amp; Syllabus Coverage</label>
+            <textarea id="topic-input-desc" class="admin-form-textarea" placeholder="Outline the key concepts, examination relevance, and reference articles..."></textarea>
+          </div>
+          <div class="admin-form-group">
+            <label for="topic-input-status" class="admin-form-label">Publication Status</label>
+            <select id="topic-input-status" class="admin-form-select">
+              <option value="published">Published (Visible to students)</option>
+              <option value="draft">Draft (Private admin review)</option>
+            </select>
+          </div>
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="admin-btn-action btn-modal-cancel">Cancel</button>
+          <button type="submit" class="admin-btn-action admin-btn-accent">Save Topic</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. Question (MCQ) Editor Modal -->
+  <div id="modal-question-editor" class="admin-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-question-heading">
+    <div class="admin-modal-container modal-lg">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="modal-question-heading"><i class="fas fa-circle-question text-gold"></i> Practice Question (MCQ)</h3>
+        <button type="button" class="admin-modal-close" aria-label="Close dialog"><i class="fas fa-times"></i></button>
+      </div>
+      <form id="form-question-editor">
+        <input type="hidden" id="question-edit-id" />
+        <div class="admin-modal-body">
+          <div class="admin-form-group">
+            <label for="question-input-text" class="admin-form-label">Question Text <span class="required-star">*</span></label>
+            <textarea id="question-input-text" class="admin-form-textarea" style="min-height: 70px;" placeholder="Enter clear question statement..." required></textarea>
+          </div>
+
+          <div class="admin-field-row">
+            <div class="admin-form-group">
+              <label for="question-input-subject" class="admin-form-label">Subject <span class="required-star">*</span></label>
+              <select id="question-input-subject" class="admin-form-select">
+                <option value="Indian History">Indian History</option>
+                <option value="Indian Polity">Indian Polity</option>
+                <option value="Indian Geography">Indian Geography</option>
+                <option value="Indian Economy">Indian Economy</option>
+                <option value="General Science">General Science</option>
+                <option value="Environment & Ecology">Environment & Ecology</option>
+                <option value="Art & Culture">Art & Culture</option>
+              </select>
+            </div>
+            <div class="admin-form-group">
+              <label for="question-input-topic" class="admin-form-label">Assigned Topic <span class="required-star">*</span></label>
+              <select id="question-input-topic" class="admin-form-select">
+                <!-- Populated dynamically from AdminStore -->
+              </select>
+            </div>
+          </div>
+
+          <div class="admin-field-row">
+            <div class="admin-form-group">
+              <label for="question-input-diff" class="admin-form-label">Difficulty Level</label>
+              <select id="question-input-diff" class="admin-form-select">
+                <option value="Easy">Easy (Standard Fact)</option>
+                <option value="Medium">Medium (Application / Multi-statement)</option>
+                <option value="Hard">Hard (Analytical / UPSC Level)</option>
+              </select>
+            </div>
+            <div class="admin-form-group">
+              <label for="question-input-status" class="admin-form-label">Status</label>
+              <select id="question-input-status" class="admin-form-select">
+                <option value="published">Published (Active in Quiz)</option>
+                <option value="draft">Draft (Under Review)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 4 Multiple Choice Options (Radio selects the correct one) -->
+          <div class="admin-form-group">
+            <label class="admin-form-label">Multiple Choice Options (Select radio next to the correct answer) <span class="required-star">*</span></label>
+            <div class="admin-mcq-options-wrap">
+              
+              <div class="admin-mcq-opt-row">
+                <input type="radio" id="radio-opt-0" name="correct_opt" value="0" class="admin-mcq-radio-sr" checked />
+                <label for="radio-opt-0" class="admin-mcq-radio-label" title="Set A as correct">A</label>
+                <input type="text" id="opt-val-0" class="admin-form-input" placeholder="Option A text..." aria-label="Option A text" required />
+              </div>
+
+              <div class="admin-mcq-opt-row">
+                <input type="radio" id="radio-opt-1" name="correct_opt" value="1" class="admin-mcq-radio-sr" />
+                <label for="radio-opt-1" class="admin-mcq-radio-label" title="Set B as correct">B</label>
+                <input type="text" id="opt-val-1" class="admin-form-input" placeholder="Option B text..." aria-label="Option B text" required />
+              </div>
+
+              <div class="admin-mcq-opt-row">
+                <input type="radio" id="radio-opt-2" name="correct_opt" value="2" class="admin-mcq-radio-sr" />
+                <label for="radio-opt-2" class="admin-mcq-radio-label" title="Set C as correct">C</label>
+                <input type="text" id="opt-val-2" class="admin-form-input" placeholder="Option C text..." aria-label="Option C text" required />
+              </div>
+
+              <div class="admin-mcq-opt-row">
+                <input type="radio" id="radio-opt-3" name="correct_opt" value="3" class="admin-mcq-radio-sr" />
+                <label for="radio-opt-3" class="admin-mcq-radio-label" title="Set D as correct">D</label>
+                <input type="text" id="opt-val-3" class="admin-form-input" placeholder="Option D text..." aria-label="Option D text" required />
+              </div>
+
+            </div>
+          </div>
+
+          <div class="admin-form-group">
+            <label for="question-input-exp" class="admin-form-label">Detailed Explanation &amp; Solution</label>
+            <textarea id="question-input-exp" class="admin-form-textarea" placeholder="Explain why the chosen option is correct, citing historical acts, constitutional articles, or geographical data..."></textarea>
+          </div>
+
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="admin-btn-action btn-modal-cancel">Cancel</button>
+          <button type="submit" class="admin-btn-action admin-btn-accent">Save Question</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. Current Affairs Editor Modal -->
+  <div id="modal-affairs-editor" class="admin-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-affairs-heading">
+    <div class="admin-modal-container modal-lg">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="modal-affairs-heading"><i class="fas fa-newspaper text-gold"></i> Current Affairs Article</h3>
+        <button type="button" class="admin-modal-close" aria-label="Close dialog"><i class="fas fa-times"></i></button>
+      </div>
+      <form id="form-affairs-editor">
+        <input type="hidden" id="affairs-edit-id" />
+        <div class="admin-modal-body">
+          <div class="admin-form-group">
+            <label for="affairs-input-title" class="admin-form-label">Headline / Title <span class="required-star">*</span></label>
+            <input type="text" id="affairs-input-title" class="admin-form-input" placeholder="e.g. India Successfully Tests Advanced Deep-Sea Port" required />
+          </div>
+          <div class="admin-field-row">
+            <div class="admin-form-group">
+              <label for="affairs-input-category" class="admin-form-label">Category <span class="required-star">*</span></label>
+              <select id="affairs-input-category" class="admin-form-select">
+                <option value="National">National Affairs</option>
+                <option value="International">International Summits</option>
+                <option value="Economy & Infrastructure">Economy & Infrastructure</option>
+                <option value="Science & Technology">Science & Technology</option>
+                <option value="Environment & Energy">Environment & Energy</option>
+                <option value="Sports & Awards">Sports & Awards</option>
+                <option value="Defense & Security">Defense & Security</option>
+              </select>
+            </div>
+            <div class="admin-form-group">
+              <label for="affairs-input-date" class="admin-form-label">Publication Date <span class="required-star">*</span></label>
+              <input type="date" id="affairs-input-date" class="admin-form-input" required />
+            </div>
+          </div>
+          <div class="admin-form-group">
+            <label for="affairs-input-summary" class="admin-form-label">Key Highlights / Summary</label>
+            <textarea id="affairs-input-summary" class="admin-form-textarea" style="min-height: 60px;" placeholder="Brief 1-2 sentence executive summary for quick student revision..."></textarea>
+          </div>
+          <div class="admin-form-group">
+            <label for="affairs-input-content" class="admin-form-label">Full Article / Context</label>
+            <textarea id="affairs-input-content" class="admin-form-textarea" style="min-height: 110px;" placeholder="Detailed background, official ministry statements, statistics, and competitive exam relevance..."></textarea>
+          </div>
+          <div class="admin-field-row">
+            <div class="admin-form-group">
+              <label for="affairs-input-tags" class="admin-form-label">Tags (comma-separated)</label>
+              <input type="text" id="affairs-input-tags" class="admin-form-input" placeholder="e.g. ISRO, Space, Gaganyaan, Economy" />
+            </div>
+            <div class="admin-form-group">
+              <label for="affairs-input-status" class="admin-form-label">Status</label>
+              <select id="affairs-input-status" class="admin-form-select">
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="admin-btn-action btn-modal-cancel">Cancel</button>
+          <button type="submit" class="admin-btn-action admin-btn-accent">Save Article</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. Government Exam Editor Modal -->
+  <div id="modal-exam-editor" class="admin-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-exam-heading">
+    <div class="admin-modal-container modal-lg">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="modal-exam-heading"><i class="fas fa-graduation-cap text-gold"></i> Government Exam Notification</h3>
+        <button type="button" class="admin-modal-close" aria-label="Close dialog"><i class="fas fa-times"></i></button>
+      </div>
+      <form id="form-exam-editor">
+        <input type="hidden" id="exam-edit-id" />
+        <div class="admin-modal-body">
+          <div class="admin-form-group">
+            <label for="exam-input-title" class="admin-form-label">Exam Name &amp; Year <span class="required-star">*</span></label>
+            <input type="text" id="exam-input-title" class="admin-form-input" placeholder="e.g. UPSC Civil Services Examination (CSE) 2026" required />
+          </div>
+          <div class="admin-field-row">
+            <div class="admin-form-group">
+              <label for="exam-input-agency" class="admin-form-label">Conducting Agency</label>
+              <input type="text" id="exam-input-agency" class="admin-form-input" placeholder="e.g. Union Public Service Commission" />
+            </div>
+            <div class="admin-form-group">
+              <label for="exam-input-category" class="admin-form-label">Exam Category <span class="required-star">*</span></label>
+              <select id="exam-input-category" class="admin-form-select">
+                <option value="UPSC">UPSC</option>
+                <option value="SSC">SSC</option>
+                <option value="Railway">Railway</option>
+                <option value="Banking">Banking</option>
+                <option value="Defence">Defence</option>
+                <option value="State PSC">State PSC</option>
+                <option value="Teaching">Teaching</option>
+              </select>
+            </div>
+          </div>
+          <div class="admin-field-row">
+            <div class="admin-form-group">
+              <label for="exam-input-vacancies" class="admin-form-label">Total Vacancies</label>
+              <input type="text" id="exam-input-vacancies" class="admin-form-input" placeholder="e.g. 1,056+ Posts" />
+            </div>
+            <div class="admin-form-group">
+              <label for="exam-input-dates" class="admin-form-label">Important Exam Dates</label>
+              <input type="text" id="exam-input-dates" class="admin-form-input" placeholder="e.g. Prelims: May 2026 | Mains: Sept 2026" />
+            </div>
+          </div>
+          <div class="admin-form-group">
+            <label for="exam-input-eligibility" class="admin-form-label">Eligibility Criteria (Education, Age)</label>
+            <textarea id="exam-input-eligibility" class="admin-form-textarea" placeholder="e.g. Graduation in any discipline. Age: 21-32 years with permissible reservations..."></textarea>
+          </div>
+          <div class="admin-form-group">
+            <label for="exam-input-stages" class="admin-form-label">Selection Stages</label>
+            <input type="text" id="exam-input-stages" class="admin-form-input" placeholder="e.g. Preliminary Exam -> Main Written -> Interview" />
+          </div>
+          <div class="admin-field-row">
+            <div class="admin-form-group">
+              <label for="exam-input-syllabus" class="admin-form-label">Syllabus Overview</label>
+              <textarea id="exam-input-syllabus" class="admin-form-textarea" placeholder="Polity, History, Geography, Economy, Reasoning, Math..."></textarea>
+            </div>
+            <div class="admin-form-group">
+              <label for="exam-input-status" class="admin-form-label">Publication Status</label>
+              <select id="exam-input-status" class="admin-form-select">
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="admin-btn-action btn-modal-cancel">Cancel</button>
+          <button type="submit" class="admin-btn-action admin-btn-accent">Save Exam Details</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5. Study Material Editor Modal -->
+  <div id="modal-material-editor" class="admin-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-material-heading">
+    <div class="admin-modal-container">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="modal-material-heading"><i class="fas fa-book-open text-gold"></i> Study Material Resource</h3>
+        <button type="button" class="admin-modal-close" aria-label="Close dialog"><i class="fas fa-times"></i></button>
+      </div>
+      <form id="form-material-editor">
+        <input type="hidden" id="material-edit-id" />
+        <div class="admin-modal-body">
+          <div class="admin-form-group">
+            <label for="material-input-title" class="admin-form-label">Material Title <span class="required-star">*</span></label>
+            <input type="text" id="material-input-title" class="admin-form-input" placeholder="e.g. Indian Polity 395 Articles Pocket Guide" required />
+          </div>
+          <div class="admin-field-row">
+            <div class="admin-form-group">
+              <label for="material-input-subject" class="admin-form-label">Subject Category <span class="required-star">*</span></label>
+              <select id="material-input-subject" class="admin-form-select">
+                <option value="Indian Polity">Indian Polity</option>
+                <option value="Indian Geography">Indian Geography</option>
+                <option value="Indian History">Indian History</option>
+                <option value="Indian Economy">Indian Economy</option>
+                <option value="General Science">General Science</option>
+                <option value="Exam Preparation">Exam Preparation</option>
+                <option value="Current Affairs">Current Affairs</option>
+              </select>
+            </div>
+            <div class="admin-form-group">
+              <label for="material-input-type" class="admin-form-label">Format / Type</label>
+              <select id="material-input-type" class="admin-form-select">
+                <option value="PDF Document">PDF Document</option>
+                <option value="Quick Revision Notes">Quick Revision Notes</option>
+                <option value="Formula / Map Sheet">Formula / Map Sheet</option>
+                <option value="Syllabus Guide">Syllabus Guide</option>
+              </select>
+            </div>
+          </div>
+          <div class="admin-field-row">
+            <div class="admin-form-group">
+              <label for="material-input-size" class="admin-form-label">File Size</label>
+              <input type="text" id="material-input-size" class="admin-form-input" placeholder="e.g. 4.2 MB" />
+            </div>
+            <div class="admin-form-group">
+              <label for="material-input-pages" class="admin-form-label">Page Count</label>
+              <input type="text" id="material-input-pages" class="admin-form-input" placeholder="e.g. 48 Pages" />
+            </div>
+          </div>
+          <div class="admin-form-group">
+            <label for="material-input-url" class="admin-form-label">Download / Resource URL</label>
+            <input type="text" id="material-input-url" class="admin-form-input" placeholder="e.g. /materials/polity-articles.pdf or external link" />
+          </div>
+          <div class="admin-form-group">
+            <label for="material-input-desc" class="admin-form-label">Description &amp; Highlights</label>
+            <textarea id="material-input-desc" class="admin-form-textarea" placeholder="Comprehensive tables of Constitutional amendments, writs, and revision notes..."></textarea>
+          </div>
+          <div class="admin-form-group">
+            <label for="material-input-status" class="admin-form-label">Status</label>
+            <select id="material-input-status" class="admin-form-select">
+              <option value="published">Published</option>
+              <option value="draft">Draft</option>
+            </select>
+          </div>
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="admin-btn-action btn-modal-cancel">Cancel</button>
+          <button type="submit" class="admin-btn-action admin-btn-accent">Save Material</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 6. Contact Message Detail & Reply Modal -->
+  <div id="modal-message-detail" class="admin-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-msg-heading">
+    <div class="admin-modal-container">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="modal-msg-heading"><i class="fas fa-inbox text-gold"></i> Candidate Inquiry</h3>
+        <button type="button" class="admin-modal-close" aria-label="Close dialog"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="admin-modal-body">
+        <input type="hidden" id="msg-detail-id" />
+        
+        <div style="background: #f8fafc; border: 1px solid var(--admin-border); border-radius: 10px; padding: 14px 18px; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+            <div>
+              <strong id="msg-detail-sender" style="color: var(--admin-navy-primary); font-size: 1rem;">Candidate Name</strong>
+              <div style="font-size: 0.82rem; color: #64748b; margin-top: 2px;">
+                Email: <a id="msg-detail-email-link" href="#" style="color: var(--admin-blue-vibrant); font-weight: 600;"><span id="msg-detail-email">candidate@gmail.com</span></a>
+              </div>
+            </div>
+            <span id="msg-detail-status-badge" class="admin-status-badge">UNREAD</span>
+          </div>
+          <div style="font-size: 0.75rem; color: #94a3b8;" id="msg-detail-date">Received Date</div>
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label">Subject</label>
+          <div id="msg-detail-subject" style="font-weight: 700; color: var(--admin-navy-primary); font-size: 0.95rem; background: #ffffff; border: 1px solid var(--admin-border); padding: 10px 14px; border-radius: 8px;">
+            Inquiry Subject
+          </div>
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label">Message Content</label>
+          <div id="msg-detail-body" style="background: #ffffff; border: 1px solid var(--admin-border); padding: 12px 14px; border-radius: 8px; font-size: 0.88rem; line-height: 1.5; color: var(--admin-text-body); max-height: 180px; overflow-y: auto;">
+            Message body text...
+          </div>
+        </div>
+
+        <div class="admin-form-group" style="margin-top: 18px;">
+          <label for="msg-reply-textarea" class="admin-form-label">Administrative Reply / Internal Resolution Notes</label>
+          <textarea id="msg-reply-textarea" class="admin-form-textarea" placeholder="Record internal action, response summary, or resolution details..."></textarea>
+        </div>
+      </div>
+      <div class="admin-modal-footer">
+        <button type="button" class="admin-btn-action btn-modal-cancel">Close</button>
+        <button type="button" id="btn-save-reply" class="admin-btn-action admin-btn-accent">
+          <i class="fas fa-check"></i> Mark as Replied &amp; Save Note
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Delete Confirmation Modal -->
+  <div id="modal-delete-confirm" class="admin-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-del-heading">
+    <div class="admin-modal-container" style="max-width: 440px;">
+      <div class="admin-modal-header" style="border-bottom-color: #fee2e2; background: #fef2f2;">
+        <h3 class="admin-modal-title" id="modal-del-heading" style="color: var(--admin-red);">
+          <i class="fas fa-triangle-exclamation"></i> Confirm Deletion
+        </h3>
+        <button type="button" id="modal-delete-close" class="admin-modal-close" aria-label="Close dialog"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="admin-modal-body" style="padding: 22px;">
+        <p style="font-size: 0.92rem; color: var(--admin-text-main); margin-bottom: 10px;">
+          Are you sure you want to permanently delete <strong id="delete-item-title" style="color: var(--admin-navy-primary);">this item</strong>?
+        </p>
+        <p style="font-size: 0.8rem; color: var(--admin-text-muted);">
+          This record will be removed from the local and live content databases. This action cannot be undone.
+        </p>
+      </div>
+      <div class="admin-modal-footer">
+        <button type="button" id="btn-cancel-delete" class="admin-btn-action">Cancel</button>
+        <button type="button" id="btn-confirm-delete" class="admin-btn-action" style="background: var(--admin-red); color: #ffffff; border: none;">
+          <i class="fas fa-trash"></i> Delete Permanently
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic Environment Variables Loader -->
+  <script src="/admin/env.js"></script>
+
+  <!-- Supabase JS Client v2 from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Admin Auth Module -->
+  <script src="auth.js"></script>
+
+  <!-- Admin Central Data Layer -->
+  <script src="admin-store.js"></script>
+
+  <!-- Admin Application Controller -->
+  <script src="admin-app.js"></script>
+
+  <!-- Auth Guard & Session Bootstrap -->
+  <script>
+    (function () {
+      'use strict';
+
+      const loadingCloak = document.getElementById('admin-auth-loading');
+      const appRoot = document.getElementById('admin-app-root');
+      const displayName = document.getElementById('admin-display-name');
+      const sidebarEmail = document.getElementById('sidebar-user-email');
+      const sidebarAvatar = document.getElementById('sidebar-user-avatar');
+      const sidebarLogoutBtn = document.getElementById('admin-sidebar-logout-btn');
+      const topbarLogoutBtn = document.getElementById('admin-topbar-logout-btn');
+      const mobileToggle = document.getElementById('admin-mobile-toggle');
+      const sidebarClose = document.getElementById('admin-sidebar-close');
+      const sidebarOverlay = document.getElementById('admin-sidebar-overlay');
+      const sidebar = document.getElementById('admin-sidebar');
+
+      // 1. Mobile Sidebar Drawer Controls
+      function openMobileSidebar() {
+        sidebar.classList.add('is-open');
+        sidebarOverlay.classList.add('is-active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMobileSidebar() {
+        sidebar.classList.remove('is-open');
+        sidebarOverlay.classList.remove('is-active');
+        document.body.style.overflow = '';
+      }
+
+      if (mobileToggle) mobileToggle.addEventListener('click', openMobileSidebar);
+      if (sidebarClose) sidebarClose.addEventListener('click', closeMobileSidebar);
+      if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeMobileSidebar);
+
+      // 2. Logout Handler
+      async function handleLogout() {
+        if (sidebarLogoutBtn) sidebarLogoutBtn.disabled = true;
+        if (topbarLogoutBtn) topbarLogoutBtn.disabled = true;
+        await AdminAuth.logout();
+      }
+
+      if (sidebarLogoutBtn) sidebarLogoutBtn.addEventListener('click', handleLogout);
+      if (topbarLogoutBtn) topbarLogoutBtn.addEventListener('click', handleLogout);
+
+      // 3. Route Guard: Check Session & Administrator Role with Error Handling
+      function renderAuthError(err) {
+        const spinnerContainer = document.getElementById('admin-auth-spinner-container');
+        const errorCard = document.getElementById('admin-auth-error-card');
+        const errorTitle = document.getElementById('admin-auth-error-title');
+        const errorMsg = document.getElementById('admin-auth-error-message');
+        const errorIcon = document.getElementById('admin-auth-error-icon');
+        const loadingText = document.getElementById('admin-auth-loading-text');
+
+        if (err.type === 'unauthorized') {
+          if (loadingText) loadingText.textContent = err.message || 'Administrator access required. Redirecting to login...';
+          return;
+        }
+
+        if (spinnerContainer) spinnerContainer.style.display = 'none';
+        if (errorCard) errorCard.style.display = 'block';
+        if (errorTitle) errorTitle.textContent = 'Authentication Service Unavailable';
+        if (errorMsg) errorMsg.textContent = err.message || 'The authentication service did not respond or encountered an error. Please try again or return to Admin Login.';
+        if (errorIcon) {
+          errorIcon.style.background = 'rgba(239, 68, 68, 0.15)';
+          errorIcon.style.color = '#ef4444';
+          errorIcon.innerHTML = '<i class="fas fa-triangle-exclamation"></i>';
+        }
+      }
+
+      function startAuthCheck() {
+        const spinnerContainer = document.getElementById('admin-auth-spinner-container');
+        const errorCard = document.getElementById('admin-auth-error-card');
+        const loadingText = document.getElementById('admin-auth-loading-text');
+
+        if (errorCard) errorCard.style.display = 'none';
+        if (spinnerContainer) spinnerContainer.style.display = 'flex';
+        if (loadingText) loadingText.textContent = 'Verifying Administrator Access...';
+
+        AdminAuth.requireAuth(
+          function (user) {
+            // Authenticated Admin Verified
+            const email = user.email || 'Admin';
+            const name = user.user_metadata?.full_name || email.split('@')[0] || 'Admin';
+            
+            if (displayName) displayName.textContent = name;
+            if (sidebarEmail) sidebarEmail.textContent = email;
+            if (sidebarAvatar) sidebarAvatar.textContent = name.charAt(0).toUpperCase();
+
+            // Reveal dashboard, remove cloak
+            if (loadingCloak) loadingCloak.style.display = 'none';
+            if (appRoot) appRoot.style.display = 'flex';
+
+            // Trigger view rendering
+            if (window.AdminApp && window.AdminApp.renderCurrentView) {
+              window.AdminApp.renderCurrentView();
+            }
+          },
+          function (err) {
+            renderAuthError(err);
+          }
+        );
+      }
+
+      // Retry button handler
+      const retryBtn = document.getElementById('admin-auth-retry-btn');
+      if (retryBtn) {
+        retryBtn.addEventListener('click', startAuthCheck);
+      }
+
+      // Initial execution
+      startAuthCheck();
+
+      // 4. Prevent back navigation from cached state
+      window.addEventListener('pageshow', function (event) {
+        if (event.persisted) {
+          AdminAuth.getCurrentSession().then(function (res) {
+            if (!res.session || !res.isAdmin) {
+              window.location.replace(AdminAuth.getAdminLoginPath ? AdminAuth.getAdminLoginPath() : 'login.html');
+            }
+          });
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

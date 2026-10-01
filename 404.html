@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 - Page Not Found | GK India Academy</title>
+  <meta name="description" content="The page you are looking for does not exist or has been moved. Explore GK topics, government exam alerts, and daily practice MCQs on GK India Academy." />
+  <meta name="robots" content="noindex, follow" />
+  <meta name="theme-color" content="#0f2744" />
+
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="search.css" />
+
+  <style>
+    .error-hero-section {
+      min-height: 75vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 16px;
+      background: radial-gradient(circle at 50% 20%, rgba(30, 58, 138, 0.15) 0%, rgba(15, 39, 68, 0.02) 70%);
+      text-align: center;
+    }
+    .error-card {
+      max-width: 680px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 48px 32px;
+      box-shadow: var(--shadow-lg);
+    }
+    .error-badge-404 {
+      display: inline-block;
+      font-family: 'Outfit', sans-serif;
+      font-size: 5.5rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -2px;
+      background: linear-gradient(135deg, var(--navy-primary) 0%, #1e40af 50%, var(--gold-primary) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+    .error-headline {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: var(--navy-darkest);
+      margin-bottom: 14px;
+    }
+    .error-subtext {
+      font-size: 1.02rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+    .error-search-box {
+      max-width: 480px;
+      margin: 0 auto 32px;
+      position: relative;
+    }
+    .error-search-box input {
+      width: 100%;
+      padding: 14px 48px 14px 20px;
+      font-size: 0.95rem;
+      border: 1.5px solid var(--border-medium);
+      border-radius: var(--radius-pill);
+      background: var(--bg-soft-gray);
+      transition: all var(--transition-fast);
+      outline: none;
+    }
+    .error-search-box input:focus {
+      background: #ffffff;
+      border-color: var(--navy-primary);
+      box-shadow: 0 0 0 3px rgba(15, 39, 68, 0.12);
+    }
+    .error-search-btn {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--navy-primary);
+      color: #fff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background var(--transition-fast);
+    }
+    .error-search-btn:hover {
+      background: var(--gold-primary);
+      color: var(--navy-darkest);
+    }
+    .error-actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+    .quick-links-strip {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 24px;
+    }
+    .quick-links-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-light);
+      margin-bottom: 14px;
+    }
+    .quick-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+    .quick-pill {
+      background: var(--bg-soft-gray);
+      border: 1px solid var(--border-subtle);
+      color: var(--navy-primary);
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .quick-pill:hover {
+      background: var(--navy-primary);
+      color: #ffffff;
+      border-color: var(--navy-primary);
+      transform: translateY(-1px);
+    }
+    @media (max-width: 576px) {
+      .error-card {
+        padding: 32px 18px;
+      }
+      .error-badge-404 {
+        font-size: 4rem;
+      }
+      .error-headline {
+        font-size: 1.45rem;
+      }
+      .error-actions-row .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-announcement-bar">
+    <div class="container announcement-content">
+      <div class="announcement-left">
+        <span class="badge-new">INFO</span>
+        <span class="announcement-text"><i class="fas fa-compass"></i> Let's guide you back to the right study materials!</span>
+      </div>
+      <div class="announcement-right">
+        <a href="index.html" class="announcement-link"><i class="fas fa-home"></i> Academy Homepage</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-container">
+      <a href="index.html" class="brand-logo-wrap" aria-label="GK India Academy Home">
+        <img src="assets/logo.png" alt="GK India Academy Logo" class="brand-logo-img" onerror="this.style.display='none'; this.nextElementSibling.classList.add('logo-fallback-visible');" />
+        <div class="brand-logo-fallback"><i class="fas fa-graduation-cap"></i></div>
+        <div class="brand-text-block">
+          <span class="brand-title">GK INDIA ACADEMY</span>
+          <span class="brand-tagline">Prepare Smart. Learn More. Succeed.</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="desktop-nav" aria-label="Primary Navigation">
+        <ul class="nav-links-list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="government-exams.html" class="nav-link">Government Exams</a></li>
+          <li><a href="mcqs/index.html" class="nav-link">Practice MCQs</a></li>
+          <li><a href="index.html#current-affairs" class="nav-link">Current Affairs</a></li>
+          <li><a href="index.html#youtube" class="nav-link">Videos</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <button class="btn-global-search-trigger" id="globalSearchBtn" aria-label="Search Academy" title="Search Academy (Ctrl+K or /)">
+          <i class="fas fa-search"></i>
+          <span class="search-trigger-text">Search topics, exams...</span>
+          <kbd class="search-kbd-badge">Ctrl+K</kbd>
+        </button>
+        <a href="index.html" class="btn btn-primary btn-header-cta">
+          <span>Home</span>
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 404 Main Section -->
+  <main class="error-hero-section">
+    <div class="container">
+      <div class="error-card">
+        <div class="error-badge-404">404</div>
+        <h1 class="error-headline">Page Not Found</h1>
+        <p class="error-subtext">
+          The requested page might have been relocated, renamed, or is temporarily unavailable. 
+          Use the search bar below or explore our recommended study portals.
+        </p>
+
+        <!-- Search Bar -->
+        <div class="error-search-box">
+          <form onsubmit="handleErrorSearch(event)">
+            <input type="text" id="pageErrorSearchInput" placeholder="Search GK topics, exams, or questions..." aria-label="Search GK topics, exams, or questions" required />
+            <button type="submit" class="error-search-btn" aria-label="Perform search">
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </form>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="error-actions-row">
+          <a href="index.html" class="btn btn-primary">
+            <i class="fas fa-home"></i>
+            <span>Return to Homepage</span>
+          </a>
+          <a href="government-exams.html" class="btn btn-secondary">
+            <i class="fas fa-layer-group"></i>
+            <span>Browse Government Exams</span>
+          </a>
+          <a href="mcqs/index.html" class="btn btn-secondary">
+            <i class="fas fa-play"></i>
+            <span>Practice MCQs</span>
+          </a>
+          <button type="button" class="btn btn-outline" onclick="window.history.back()">
+            <i class="fas fa-arrow-left"></i>
+            <span>Go Back</span>
+          </button>
+        </div>
+
+        <!-- Quick Links Strip -->
+        <div class="quick-links-strip">
+          <div class="quick-links-title">Popular Study Portals</div>
+          <div class="quick-pills-row">
+            <a href="subjects/indian-geography.html" class="quick-pill"><i class="fas fa-mountain-sun"></i> Indian Geography</a>
+            <a href="subjects/indian-history.html" class="quick-pill"><i class="fas fa-monument"></i> Indian History</a>
+            <a href="subjects/indian-polity.html" class="quick-pill"><i class="fas fa-scale-balanced"></i> Indian Polity</a>
+            <a href="subjects/indian-economy.html" class="quick-pill"><i class="fas fa-chart-line"></i> Indian Economy</a>
+            <a href="subjects/general-science.html" class="quick-pill"><i class="fas fa-atom"></i> General Science</a>
+            <a href="index.html#current-affairs" class="quick-pill"><i class="fas fa-newspaper"></i> Current Affairs</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p class="copyright-text">
+        &copy; 2026 GK India Academy. All rights reserved. Prepare Smart. Learn More. Succeed.
+      </p>
+      <div class="footer-legal-links">
+        <a href="index.html">Home</a>
+        <span class="footer-bullet">•</span>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <span class="footer-bullet">•</span>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <span class="footer-bullet">•</span>
+        <a href="disclaimer.html">Disclaimer</a>
+        <span class="footer-bullet">•</span>
+        <a href="cookie-policy.html">Cookie Policy</a>
+        <span class="footer-bullet">•</span>
+        <a href="sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Search Modal & Script Integration -->
+  <script src="search.js"></script>
+  <script>
+    function handleErrorSearch(e) {
+      e.preventDefault();
+      const val = document.getElementById('pageErrorSearchInput').value.trim();
+      if (!val) return;
+      if (window.GlobalSearch && typeof window.GlobalSearch.open === 'function') {
+        window.GlobalSearch.open(val);
+      } else {
+        window.location.href = 'index.html?search=' + encodeURIComponent(val);
+      }
+    }
+  </script>
+</body>
+</html>
